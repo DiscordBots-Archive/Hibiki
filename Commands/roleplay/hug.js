@@ -12,7 +12,8 @@ module.exports = class Hug extends Command {
             args: [{
                 key: 'user',
                 prompt: 'Which user do you want to hug?~\n',
-                type: 'user'
+                type: 'user',
+                infinite: true
             }]
         });
     }
