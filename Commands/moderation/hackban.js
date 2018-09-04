@@ -49,7 +49,7 @@ module.exports = class Hackban extends Command {
         } catch (err) {
             Raven.captureException(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };

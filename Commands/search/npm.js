@@ -48,7 +48,7 @@ module.exports = class NPM extends Command {
         } catch (err) {
             Raven.captureException(err);
             if (err.status === 404) return msg.say('❎ | NPM package not found.');
-            return msg.say(`❎ | This command has been errored and the devs has been notified about it. Give them this message: \`${err.message}\``);
+            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give them this message: \`${err.message}\``);
         }
     }
 };

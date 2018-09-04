@@ -22,7 +22,7 @@ module.exports = class Cat extends Command {
             return msg.say({ files: [{ attachment: body, name: `cat.${format}` }] });
         } catch (err) {
             Raven.captureException(err);
-            await msg.say(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            await msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };
