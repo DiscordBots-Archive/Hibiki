@@ -39,7 +39,7 @@ module.exports = class BeautifulCommand extends Command {
             ctx.drawImage(base, 0, 0);
             return msg.say({ files: [{ attachment: canvas.toBuffer(), name: 'beautiful.png' }] });
         } catch (err) {
-            return msg.reply(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.reply(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };

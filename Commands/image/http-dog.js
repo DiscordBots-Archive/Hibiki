@@ -25,11 +25,11 @@ module.exports = class HTTPDog extends Command {
     async run(msg, { code }) {
         try {
             const { body, headers } = await get(`https://httpstatusdogs.com/img/${code}.png`);
-            if (headers['content-type'].includes('text/html')) return msg.say('I didn\'t found any results. Try again later.');
+            if (headers['content-type'].includes('text/html')) return msg.say('I didn\'t find any results. Try again later.');
             return msg.say({ files: [{ attachment: body, name: 'code.png' }] });
         } catch (err) {
             Raven.captureException(err);
-            return msg.say(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.say(`❎ | This command has errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };

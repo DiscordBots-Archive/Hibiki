@@ -19,7 +19,7 @@ module.exports = class OwO extends Command {
             return msg.say({ files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: body.path }] });
         } catch (err) {
             Raven.captureException(err);
-            return msg.say(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };

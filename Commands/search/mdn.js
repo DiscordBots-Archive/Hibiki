@@ -39,7 +39,7 @@ module.exports = class MDN extends Command {
             return msg.embed(embed);
         } catch (err) {
             Raven.captureException(err);
-            return msg.say(`❎ | This command has been errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
 };
