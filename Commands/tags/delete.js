@@ -40,7 +40,7 @@ module.exports = class TagDeleteCommand extends Command {
     }
 
     async run(msg, { name }) {
-        const staffRole = this.client.isOwner(msg.author) || await this.client.modules.IsStaff(msg.member);
+        const staffRole = this.client.isOwner(msg.author) || await msg.member.permissions.has('MANAGE_MESSAGES');
         const tag = await Tag.findOne({ where: { name, guildID: msg.guild.id } });
         if (!tag) return msg.say(`A tag with the name **${name}** doesn't exist, ${msg.author}`);
         if (tag.userID !== msg.author.id && !staffRole) return msg.say(`You can only delete your own tags, ${msg.author}`);

@@ -1,7 +1,7 @@
 const { join } = require('path');
 
-module.exports = async (client) => {
-    await client.registry
+module.exports = (client) => {
+    client.registry
         .registerDefaultTypes()
         .registerTypesIn(join(__dirname, '..', 'Types'))
         .registerGroups([

@@ -27,7 +27,7 @@ module.exports = class Disable extends Command {
 
     hasPermission(msg) {
         if (!msg.guild) return this.client.isOwner(msg.author);
-        return this.client.isOwner(msg.author) || this.client.modules.IsStaff(msg.member);
+        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_SERVER');
     }
 
     run(msg, { cmdOrGrp }) {

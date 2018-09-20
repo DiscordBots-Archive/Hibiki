@@ -23,6 +23,6 @@ module.exports = class Insult extends Command {
         if (user === this.client.user) {
             return msg.say(`I don't think this is a great idea, ${msg.author.username}.`);
         }
-        msg.say(`${msg.author.username}, you know what? You're nothing but ${random(insults.start)} ${random(insults.middle)} ${random(insults.end)}`);
+        msg.say(`${user.username}, you know what? You're nothing but ${random(insults.start)} ${random(insults.middle)} ${random(insults.end)}`);
     }
 };

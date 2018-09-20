@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class WelcomeMessage extends Command {
     constructor(client) {
@@ -31,17 +32,31 @@ module.exports = class WelcomeMessage extends Command {
     }
 
     hasPermission(msg) {
-        return this.client.isOwner(msg.author) || this.client.modules.IsStaff(msg.member);
+        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_MESSAGES');
     }
 
     run(msg, args) {
         const { type, message } = args;
         if (type === 'welcomeMsg') {
             msg.guild.settings.set('welcomeMsg', message);
-            return msg.say(`✅ | Succesfully set welcome message to \`"${message}"\` in this server.`);
+            const embed = new MessageEmbed()
+                .setTitle('Success!')
+                .setColor(0x00FF00)
+                .setDescription(`The welcome message will now look like this:\n**${message
+                    .replace(/(<user>)/gi, msg.author.username)
+                    .replace(/(<server>)/gi, msg.guild.name)
+                    .replace(/(<mention>)/gi, msg.author.toString())}**`);
+            return msg.embed(embed);
         } else {
             msg.guild.settings.set('byeMsg', message);
-            return msg.say(`✅ | Succesfully set farewell message to \`"${message}"\` in this server.`);
+            const embed = new MessageEmbed()
+                .setTitle('Success!')
+                .setColor(0x00FF00)
+                .setDescription(`The farewell message will now look like this:\n**${message
+                    .replace(/(<user>)/gi, msg.author.username)
+                    .replace(/(<server>)/gi, msg.guild.name)
+                    .replace(/(<mention>)/gi, msg.author.toString())}**`);
+            return msg.embed(embed);
         }
     }
 };

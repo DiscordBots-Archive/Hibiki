@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
 
 module.exports = class User extends Command {
     constructor(client) {
@@ -37,9 +38,9 @@ module.exports = class User extends Command {
             .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
             .setDescription(`${member.user.bot ? 'Bot' : 'User'} is ${this.switchStatus(member.user.presence.status)} ${member.user.presence.game ? `, plays \`${member.user.presence.game.name}\`` : ''}`)
             .addField('Created on',
-                `${member.user.createdAt.toDateString()}`, true)
+                moment.utc(member.user.createdAt).format('MMMM Do YYYY, HH:mm:ss'))
             .addField('Joined on',
-                `${member.joinedAt.toDateString()}`, true);
+                moment.utc(member.user.joinedAt).format('MMMM Do YYYY, HH:mm:ss'));
         msg.embed(embed);
     }
 };

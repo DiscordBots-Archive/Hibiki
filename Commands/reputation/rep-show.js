@@ -5,7 +5,7 @@ module.exports = class RepShowCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'rep-show',
-            aliases: ['show-rep'],
+            aliases: ['show-rep', 'reps'],
             group: 'reputation',
             memberName: 'show',
             description: 'Display the reputation a user has received from other people.',

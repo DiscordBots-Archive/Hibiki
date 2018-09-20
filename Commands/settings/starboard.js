@@ -16,7 +16,7 @@ module.exports = class Starboard extends Command {
         });
     }
     hasPermission(msg) {
-        return this.client.isOwner(msg.author) || this.client.modules.IsStaff(msg.member);
+        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_MESSAGES');
     }
     run(msg, { channel }) {
         msg.guild.settings.set('starboard', channel.id);

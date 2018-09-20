@@ -1,3 +1,13 @@
-/node_modules
-/Logs
-/Config
+# PM2 Logs
+Logs
+
+# IDE shit
+.vscode
+.idea
+
+# NPM
+node_modules
+package-lock.json
+
+# Yarn
+yarn.lock

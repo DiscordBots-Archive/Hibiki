@@ -4,7 +4,7 @@ module.exports = class Stop extends Command {
     constructor(client) {
         super(client, {
             name: 'stop',
-            aliases: ['shutdown'],
+            aliases: ['shutdown', 'restart'],
             group: 'system',
             memberName: 'stop',
             description: 'Stops the bot process.',
@@ -16,9 +16,9 @@ module.exports = class Stop extends Command {
         return this.client.isOwner(msg.author);
     }
 
-    async run(msg) {
-        await msg.say(':wave:');
-        await this.client.logger.warn(`Restart triggered by ${msg.author.username}.`);
-        return setTimeout(() => process.exit(0), 500);
+    run(msg) {
+        msg.say(':wave:').then(() => {
+            setTimeout(() => process.exit(), 2000);
+        });
     }
 };

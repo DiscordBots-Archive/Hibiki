@@ -8,37 +8,38 @@ module.exports = class Gay extends Command {
             name: 'gay',
             group: 'analyze',
             memberName: 'gay',
-            description: 'Check user\'s gayness.',
+            description: 'Check a member\'s gayness.',
             examples: ['gay @User#1234'],
             guildOnly: true,
             args: [{
-                key: 'user',
-                prompt: 'Which user do you want to check?\n',
-                type: 'user'
+                key: 'member',
+                prompt: 'Which member do you want to check?\n',
+                type: 'member',
+                default: msg => msg.member
             }]
         });
     }
-    async run (msg, { user } ) {
+    async run (msg, { member } ) {
         let gayPercent;
         const embed = new MessageEmbed();
 
-        if (user.id === this.client.user.id) {
+        if (member.id === this.client.user.id) {
             await embed.setColor(this.client.color);
             await embed.setDescription('I\'m underage. Pervert!');
             await embed.setFooter(this.client.version);
         }
 
-        if (none.includes(user.id)) gayPercent = 0;
-        else if (full.includes(user.id)) gayPercent = 1e8;
+        if (none.includes(member.id)) gayPercent = 0;
+        else if (full.includes(member.id)) gayPercent = 1e8;
         else gayPercent = gayPercent = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
 
         if (gayPercent > 50) {
             await embed.setColor(this.client.color);
-            await embed.setDescription(`:gay_pride_flag: **${user.username}** is **${gayPercent}**% gay!`);
+            await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. :gay_pride_flag: `);
             await embed.setFooter(this.client.version);
         } else {
             await embed.setColor(this.client.color);
-            await embed.setDescription(`🌈 **${user.username}** is **${gayPercent}**% gay!`);
+            await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. 🌈`);
             await embed.setFooter(this.client.version);
         }
 

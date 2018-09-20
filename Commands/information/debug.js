@@ -24,25 +24,18 @@ module.exports = class Debug extends Command {
 
         [Debug information about ${this.client.user.username}.]
 
-        == User ==
-        • ID :: ${this.client.user.id}
-        • User :: ${this.client.user.tag}
-        • Version :: ${this.client.version}
-
         == OS ==
         • Memory usage :: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)} MB
         • CPU :: ${os.cpus()[1].model}
 
-        • Total memory :: ${this.client.modules.ConvertBytes(os.freemem())} / ${this.client.modules.ConvertBytes(os.totalmem())}
-
-        • Home Directory :: ${os.userInfo().homedir}
-        • Temp Directory :: ${os.tmpdir()}
+        • Memory :: ${this.client.modules.ConvertBytes(os.freemem())} / ${this.client.modules.ConvertBytes(os.totalmem())}
 
         == Versions ==
 
         • Node.js :: ${process.version}
         • discord.js :: ${require('discord.js/package.json').version}
         • discord.js-commando :: ${require('discord.js-commando/package.json').version}
+        • ${this.client.user.username} :: ${this.client.version}
 
         \`\`\`
         `);

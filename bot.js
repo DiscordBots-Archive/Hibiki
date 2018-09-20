@@ -1,10 +1,4 @@
-const { FriendlyError } = require('discord.js-commando');
-const { oneLine } = require('common-tags');
 const Raven = require('raven');
-
-const { 
-    blacklistMessage, commandPrefix, disableEveryone, invite, owner, unknownCommandResponse, sentry 
-} = require('./Config');
 
 const Client = require('./Structures/Hibiki');
 const SequelizeProvider = require('./Providers/Sequelize');
@@ -12,8 +6,10 @@ const SequelizeProvider = require('./Providers/Sequelize');
 const Currency = require('./Structures/Currency');
 const Experience = require('./Structures/Experience');
 
-let earnedRecently = [];
-let gainedXPRecently = [];
+const { FriendlyError } = require('discord.js-commando');
+const { 
+    blacklistMessage, commandPrefix, disableEveryone, invite, owner, unknownCommandResponse, sentry 
+} = require('./Config');
 
 const Hibiki = new Client({ 
     commandPrefix, disableEveryone, invite, owner, unknownCommandResponse
@@ -34,6 +30,9 @@ Hibiki.dispatcher.addInhibitor(msg => {
         .replace(/(<owner>)/, Hibiki.users.get(Hibiki.options.owner).tag);
     return msg.say(message);
 });
+
+let earnedRecently = [];
+let gainedXPRecently = [];
 
 Hibiki
     .once('ready', () => Currency.leaderboard())
@@ -86,47 +85,47 @@ Hibiki
     })
     .on('commandRun', (cmd, promise, msg, args) => {
         Hibiki.cmdsUsed++;
-        Hibiki.logger.info(oneLine`
-                [COMMAND RUN]:
-                ${msg.author.tag} (${msg.author.id})
-                > ${msg.guild ? `${msg.guild.name} (${msg.guild.id})` : 'PM'}
-                >> ${cmd.groupID}:${cmd.memberName}
-                ${Object.values(args).length ? `>>> ${Object.values(args)}` : ''}
-        `);
+        Hibiki.logger.info('A command has been triggered.', { 
+            cmd: cmd.memberName, 
+            user: `${msg.author.tag} (${msg.author.id})`, 
+            guild: msg.guild ? `${msg.guild.name} (${msg.guild.id})` : 'PM',
+            args: Object.values(args).length ? `${Object.values(args)}` : 'none', 
+        });
     })
     .on('commandError', (cmd, err) => {
         if (err instanceof FriendlyError) return;
-        Hibiki.logger.error(`[COMMAND ERROR]: Error in command ${cmd.groupID}:${cmd.memberName}.`, err);
+        Hibiki.logger.error('A command has been errored.', { 
+            cmd: cmd.memberName, 
+            error: err
+        });
     })
     .on('commandBlocked', (msg, reason) => {
-        Hibiki.logger.error(oneLine`
-            [COMMAND BLOCK]:
-			Command ${msg.command ? `${msg.command.groupID}:${msg.command.memberName}` : ''}
-			blocked; User ${msg.author.tag} (${msg.author.id}): ${reason}.
-        `);
+        Hibiki.logger.error('A command has been blocked.', { 
+            cmd: `${msg.command ? `${msg.command.groupID}:${msg.command.memberName}` : ''}`, 
+            user: `${msg.author.tag} (${msg.author.id})`,
+            guild: `${msg.guild.name} (${msg.guild.id})`,
+            reason
+        });
     })
     .on('commandPrefixChange', (guild, prefix) => {
-        Hibiki.logger.info(oneLine`
-            [PREFIX CHANGE]:
-			Prefix changed to ${prefix || 'the default'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-        `);
+        Hibiki.logger.info('Prefix changed.', { 
+            prefix: `${prefix || 'to default'}`,
+            where: `${guild.name} ${guild.id}` || 'globally'
+        });
     })
     .on('commandStatusChange', (guild, command, enabled) => {
-        Hibiki.logger.info(oneLine`
-            [COMMAND STATUS CHANGE]:
-			Command ${command.groupID}:${command.memberName}
-			${enabled ? 'enabled' : 'disabled'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-		`);
+        Hibiki.logger.info('Command status changed.', { 
+            cmd: `${command.groupID}:${command.memberName}`,
+            status: `${enabled ? 'enabled' : 'disabled'}`,
+            where: `${guild.name} ${guild.id}` || 'globally'
+        });
     })
     .on('groupStatusChange', (guild, group, enabled) => {
-        Hibiki.logger.info(oneLine`
-            [GROUP STATUS CHANGE]
-			Group ${group.id}
-			${enabled ? 'enabled' : 'disabled'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-        `);
+        Hibiki.logger.info('Group status changed.', { 
+            group: group.id,
+            status: `${enabled ? 'enabled' : 'disabled'}`,
+            where: `${guild.name} ${guild.id}` || 'globally'
+        });
     });
 
 Hibiki.setProvider(new SequelizeProvider(Hibiki.database)).catch(Hibiki.logger.error);

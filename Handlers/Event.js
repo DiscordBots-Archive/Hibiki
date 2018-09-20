@@ -1,6 +1,6 @@
 const { readdir } = require('fs');
 
-module.exports = async (client) => {
+module.exports = (client) => {
     readdir('./Events/', (err, files) => {
         if (err) return this.client.logger.error(err);
         files.forEach(file => {

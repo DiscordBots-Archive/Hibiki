@@ -13,35 +13,42 @@ module.exports = class Server extends Command {
             group: 'information',
             memberName: 'server-info',
             description: 'Retrieves server information.\n',
-            guildOnly: true
+            guildOnly: true,
+            args: [{
+                key: 'server',
+                prompt: 'Which guild do you want to lookup?',
+                type: 'string',
+                default: msg => msg.guild
+            }]
         });
     }
-    run(msg) {
+    run(msg, { server }) {
+        const guild = server ? this.client.guilds.get(server) : msg.guild;
         const embed = new MessageEmbed()
-            .setThumbnail(msg.guild.iconURL({ size: 2048 }))
+            .setThumbnail(guild.iconURL({ size: 2048 }))
             .setColor(this.client.color)
             .addField('❯ Server Name',
-                `${msg.guild.name}`, true)
+                `${guild.name}`, true)
             .addField('❯ Server ID',
-                `${msg.guild.id}`, true)
+                `${guild.id}`, true)
             .addField('❯ Created at',
-                `${moment.utc(msg.guild.createdAt).format('MMMM Do YYYY, HH:mm:ss')}`, true)
+                `${moment.utc(guild.createdAt).format('MMMM Do YYYY, HH:mm:ss')}`, true)
             .addField('❯ Server region',
-                `${this.client.modules.Region(msg.guild.region)}`, true)
+                `${this.client.modules.Region(guild.region)}`, true)
             .addField('❯ Server owner',
-                `${this.client.users.get(msg.guild.ownerID).tag} 👑`, true)
+                `${this.client.users.get(guild.ownerID).tag} 👑`, true)
             .addField('❯ Members',
-                `${msg.guild.memberCount}`, true)
+                `${guild.memberCount}`, true)
             .addField('❯ Roles',
-                `${msg.guild.roles.size}`, true)
+                `${guild.roles.size}`, true)
             .addField('❯ Channels',
-                `${msg.guild.channels.size}`, true)
+                `${guild.channels.size}`, true)
             .addField('❯ Server filter',
-                `${filterLevels[msg.guild.explicitContentFilter]}`, true)
+                `${filterLevels[guild.explicitContentFilter]}`, true)
             .addField('❯ Server verification level',
-                `${verificationLevels[msg.guild.verificationLevel]}`, true)
+                `${verificationLevels[guild.verificationLevel]}`, true)
             .addField('❯ AFK channel',
-                `${msg.guild.afkChannelID ? `<#${msg.guild.afkChannelID}> after ${msg.guild.afkTimeout / 60}min` : 'None'}`, true);
+                `${guild.afkChannelID ? `<#${guild.afkChannelID}> after ${guild.afkTimeout / 60}min` : 'None'}`, true);
         return msg.embed(embed);
 
     }

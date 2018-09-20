@@ -9,14 +9,8 @@ module.exports = class Groups extends Command {
             group: 'system',
             memberName: 'groups',
             description: 'Lists all command groups.',
-            details: 'Only administrators may use this command.',
             guarded: true
         });
-    }
-
-    hasPermission(msg) {
-        if (!msg.guild) return this.client.isOwner(msg.author);
-        return this.client.isOwner(msg.author) || this.client.modules.IsStaff(msg.member);
     }
 
     run(msg) {

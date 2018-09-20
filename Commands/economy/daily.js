@@ -1,7 +1,8 @@
 const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
+
 const moment = require('moment');
 require('moment-duration-format');
-const { stripIndents } = require('common-tags');
 
 const Currency = require('../../Structures/Currency');
 const Daily = require('../../Structures/Daily');
@@ -19,14 +20,12 @@ module.exports = class DailyCommand extends Command {
                 duration: 3
             },
 
-            args: [
-                {
-                    key: 'member',
-                    prompt: 'whom do you want to give your daily?\n',
-                    type: 'member',
-                    default: ''
-                }
-            ]
+            args: [{
+                key: 'member',
+                prompt: 'whom do you want to give your daily?\n',
+                type: 'member',
+                default: ''
+            }]
         });
     }
 
@@ -35,10 +34,12 @@ module.exports = class DailyCommand extends Command {
         const received = await Daily.received(msg.author.id);
         if (received) {
             const nextDaily = await Daily.nextDaily(msg.author.id);
-            return msg.reply(stripIndents`
-				you have already received your daily ${Currency.textPlural}.
-				You can receive your next daily in ${moment.duration(nextDaily).format('hh [hours] mm [minutes]')}
-			`);
+            const embed = new MessageEmbed()
+                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
+                .setColor(0xFF0000)
+                .setDescription(`You have already received your daily ${Currency.textPlural}.`)
+                .setFooter(`Wait ${moment.duration(nextDaily).format('hh [hours] mm [minutes]')} to receive your next daily ${Currency.textPlural}.`);
+            return msg.embed(embed);
         }
 
         if (member.id !== msg.author.id) {
@@ -50,6 +51,10 @@ module.exports = class DailyCommand extends Command {
 
         Daily.receive(msg.author.id);
 
-        return msg.reply(`You have successfully received your daily ${Currency.convert(Daily.dailyPayout)}.`);
+        const embed = new MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
+            .setColor(0x00ff00)
+            .setDescription(`You received your daily ${Currency.convert(Daily.dailyPayout)}.`);
+        return msg.embed(embed);
     }
 };

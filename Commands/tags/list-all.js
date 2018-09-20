@@ -18,10 +18,6 @@ module.exports = class TagListAllCommand extends Command {
         });
     }
 
-    hasPermission(msg) {
-        return this.client.isOwner(msg.author) || this.client.modules.IsStaff(msg.member);
-    }
-
     async run(msg) {
         const tags = await Tag.findAll({ where: { guildID: msg.guild.id } });
         if (!tags) return msg.say(`${msg.guild.name} doesn't have any tags, ${msg.author}. Why not add one?`);

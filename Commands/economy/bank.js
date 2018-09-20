@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { stripIndents } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -27,10 +27,12 @@ module.exports = class BankInfoCommand extends Command {
         const interestRate = await Bank.getInterestRate();
         const nextUpdate = await Bank.nextUpdate();
 
-        return msg.reply(stripIndents`
-			the bank currently has ${Currency.convert(balance)}.
-			The current interest rate is ${(interestRate * 100).toFixed(3)}%.
-			Interest will be applied in ${moment.duration(nextUpdate).format('hh [hours] mm [minutes]')}.
-		`);
+
+        const embed = new MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
+            .setColor(0x00FF00)
+            .setDescription(`${Currency.convert(balance)} in stock.\n${(interestRate * 100).toFixed(3)}% is the current rate.`)
+            .setFooter(`Applying interest in ${moment.duration(nextUpdate).format('hh [hours] mm [minutes]')}.`);
+        return msg.embed(embed);
     }
 };

@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const moment = require('moment');
 require('moment-duration-format');
-const { stripIndents } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 
 const Currency = require('../../Structures/Currency');
 const Hourly = require('../../Structures/Hourly');
@@ -19,14 +19,12 @@ module.exports = class HourlyCommand extends Command {
                 duration: 3
             },
 
-            args: [
-                {
-                    key: 'member',
-                    prompt: 'whom do you want to give your hourly?\n',
-                    type: 'member',
-                    default: ''
-                }
-            ]
+            args: [{
+                key: 'member',
+                prompt: 'whom do you want to give your hourly?\n',
+                type: 'member',
+                default: ''
+            }]
         });
     }
 
@@ -35,10 +33,12 @@ module.exports = class HourlyCommand extends Command {
         const received = await Hourly.received(msg.author.id);
         if (received) {
             const nextHourly = await Hourly.nextHourly(msg.author.id);
-            return msg.reply(stripIndents`
-				you have already received your hourly ${Currency.textPlural}.
-				You can receive your next hourly in ${moment.duration(nextHourly).format('hh [hours] mm [minutes]')}
-			`);
+            const embed = new MessageEmbed()
+                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
+                .setColor(0xFF0000)
+                .setDescription(`You have already received your hourly ${Currency.textPlural}.`)
+                .setFooter(`Wait ${moment.duration(nextHourly).format('hh [hours] mm [minutes]')} to receive your next hourly ${Currency.textPlural}.`);
+            return msg.embed(embed);
         }
 
         if (member.id !== msg.author.id) {
@@ -50,6 +50,10 @@ module.exports = class HourlyCommand extends Command {
 
         Hourly.receive(msg.author.id);
 
-        return msg.reply(`You have successfully received your hourly ${Currency.convert(Hourly.hourlyPayout)}.`);
+        const embed = new MessageEmbed()
+            .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
+            .setColor(0x00ff00)
+            .setDescription(`You received your hourly ${Currency.convert(Hourly.hourlyPayout)}.`);
+        return msg.embed(embed);
     }
 };

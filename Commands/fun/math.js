@@ -24,9 +24,8 @@ module.exports = class Math extends Command {
             if (query.includes('eval')) {
                 if (this.client.isOwner(msg.author)) {
                     math.eval(query);
-                } else return msg.say('https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Twemoji_2b50.svg/2000px-Twemoji_2b50.svg.png');
+                } else return msg.say('You do not have permissions to execute this.');
             }
-            if (query == 'gay') return msg.say(':gay_pride_flag:');
 
             return msg.say(num);
         } catch (err) {
