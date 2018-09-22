@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
-const Raven = require('raven');
+ 
 
 
 module.exports = class Giphy extends Command {
@@ -28,7 +28,7 @@ module.exports = class Giphy extends Command {
             const { body } = await get(`http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=${encodeURIComponent(query)}`);
             return msg.say({ files: [{ attachment: body.data.image_url, name: 'image.gif' }] });
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

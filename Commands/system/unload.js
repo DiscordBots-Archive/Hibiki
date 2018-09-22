@@ -1,6 +1,6 @@
 const { oneLine } = require('common-tags');
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Unload extends Command {
     constructor(client) {
@@ -35,7 +35,7 @@ module.exports = class Unload extends Command {
 					if(this.shard.id !== ${this.client.shard.id}) this.registry.commands.get('${command.name}').unload();
 				`);
             } catch(err) {
-                Raven.captureException(err);
+                this.captureError(err);
                 this.client.emit('warn', '❎ | Error when broadcasting command unload to other shards.');
                 this.client.emit('error', err);
                 await msg.say(`✅ | Succesfully unloaded \`${command.name}\` command, but failed to unload on other shards.`);

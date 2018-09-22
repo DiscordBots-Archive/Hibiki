@@ -1,7 +1,7 @@
 const { oneLine } = require('common-tags');
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const fs = require('fs');
-const Raven = require('raven');
+ 
 
 module.exports = class Load extends Command {
     constructor(client) {
@@ -57,7 +57,7 @@ module.exports = class Load extends Command {
 					}
 				`);
             } catch(err) {
-                Raven.captureException(err);
+                this.captureError(err);
                 this.client.emit('warn', '❎ | Error when broadcasting command load to other shards.');
                 this.client.emit('error', err);
                 await msg.say(`✅ | Succesfully loaded \`${command.name}\` command, but failed to load on other shards.`);

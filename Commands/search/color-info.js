@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { stripIndents } = require('common-tags');
 const { get } = require('snekfetch');
-const Raven = require('raven');
+ 
 
 module.exports = class ColorInfo extends Command {
     constructor(client) {
@@ -30,7 +30,7 @@ module.exports = class ColorInfo extends Command {
                 **RGB**: ${body.rgb}
             `, { files: [{ attachment: body.image, name: 'color.png '}] });
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);    
         }
     }

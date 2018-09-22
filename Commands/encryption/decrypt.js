@@ -1,5 +1,4 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
 
 module.exports = class Decrypt extends Command {
     constructor(client) {
@@ -20,7 +19,7 @@ module.exports = class Decrypt extends Command {
         try {
             msg.say(`🔓 \`${this.client.encryptor.decrypt(text)}\``);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say('I was unable to decrypt your message.');
         }
     }

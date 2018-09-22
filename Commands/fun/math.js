@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const math = require('mathjs');
-const Raven = require('raven');
+ 
 
 module.exports = class Math extends Command {
     constructor(client) {
@@ -29,7 +29,7 @@ module.exports = class Math extends Command {
 
             return msg.say(num);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             msg.say(err.message);
         }
     }

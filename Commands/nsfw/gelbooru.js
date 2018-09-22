@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const request = require('snekfetch');
+const Command = require('../../Structures/Command');
+const { get } = require('snekfetch');
 
 module.exports = class GelbooruCommand extends Command {
     constructor(client) {
@@ -21,8 +21,7 @@ module.exports = class GelbooruCommand extends Command {
 
     async run(msg, { query }) {
         try {
-            const { body } = await request
-                .get('https://gelbooru.com/index.php')
+            const { body } = await get('https://gelbooru.com/index.php')
                 .query({
                     page: 'dapi',
                     s: 'post',

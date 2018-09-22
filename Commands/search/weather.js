@@ -1,8 +1,8 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
 const { weatherKey } = require('../../Config');
-const Raven = require('raven');
+ 
 
 module.exports = class Weather extends Command {
     constructor(client) {
@@ -48,7 +48,7 @@ module.exports = class Weather extends Command {
                     body.current.humidity, true);
             msg.say(`ℹ | Weather information about ${body.location.country}`, { embed });
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

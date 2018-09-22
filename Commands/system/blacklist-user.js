@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class BlacklistUser extends Command {
     constructor(client) {
@@ -40,7 +40,7 @@ module.exports = class BlacklistUser extends Command {
         
             await msg.react('✅');
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             this.client.logger.error('[BLACKLIST ERROR]:\n %s', err.stack);
         }
     }

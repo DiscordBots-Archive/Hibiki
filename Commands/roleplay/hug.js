@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
 
 module.exports = class Hug extends Command {

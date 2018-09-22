@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
-const Raven = require('raven');
+ 
 
 module.exports = class HTTPCat extends Command {
     constructor(client) {
@@ -27,7 +27,7 @@ module.exports = class HTTPCat extends Command {
             const { body } = await get(`https://http.cat/${code}`);
             return msg.say({ files: [{ attachment: body, name: 'code.png' }] });
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs has been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

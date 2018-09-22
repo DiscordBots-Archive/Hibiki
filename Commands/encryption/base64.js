@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { list, base64 } = require('../../Modules/Util');
 const modes = ['encode', 'decode'];
 

@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { post } = require('snekfetch');
 const { oneLine, stripIndents } = require('common-tags');
-const Raven = require('raven');
+ 
 
 module.exports = class Strawpoll extends Command {
     constructor(client) {
@@ -67,7 +67,7 @@ module.exports = class Strawpoll extends Command {
             <https://www.strawpoll.me/${body.id}>
     `);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

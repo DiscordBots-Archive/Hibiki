@@ -1,7 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const request = require('snekfetch');
-const types = ['random', 'top'];
 
 module.exports = class UrbanDictionaryCommand extends Command {
     constructor(client) {
@@ -11,23 +10,16 @@ module.exports = class UrbanDictionaryCommand extends Command {
             group: 'search',
             memberName: 'urban',
             description: 'Defines a word, but with Urban Dictionary.',
-            details: `**Types**: ${types.join(', ')}`,
             args: [{
                 key: 'word',
                 prompt: 'What word would you like to look up?',
                 type: 'string'
-            }, {
-                key: 'type',
-                prompt: 'Do you want to get the top answer or a random one?',
-                type: 'string',
-                default: 'top',
-                oneOf: types,
-                parse: type => type.toLowerCase()
             }]
         });
     }
 
-    async run(msg, { word, type }) {
+    async run(msg, { word }) {
+        const type = 'top';
         const { shorten } = this.client.modules.Util;
         try {
             const { body } = await request

@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
-const Raven = require('raven');
+ 
 
 module.exports = class Steam extends Command {
     constructor(client) {
@@ -47,7 +47,7 @@ module.exports = class Steam extends Command {
                     body.id.customurl, true);
             return msg.embed(embed);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

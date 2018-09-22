@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const Raven = require('raven');
+ 
 
 module.exports = class Softban extends Command {
     constructor(client) {
@@ -19,7 +19,8 @@ module.exports = class Softban extends Command {
             }, {
                 key: 'reason',
                 prompt: 'What is the reason?\n',
-                type: 'string'
+                type: 'string',
+                default: ''
             }]
         });
     }
@@ -43,7 +44,7 @@ module.exports = class Softban extends Command {
             await msg.guild.members.unban(member.id);
             await msg.react('✅');
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

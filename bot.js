@@ -1,5 +1,4 @@
 const Raven = require('raven');
-
 const Client = require('./Structures/Hibiki');
 const SequelizeProvider = require('./Providers/Sequelize');
 

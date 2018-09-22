@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const facts = require('../../Assets/json/dog-facts');
 
 module.exports = class DogFacts extends Command {

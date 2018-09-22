@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Hastebin extends Command {
     constructor(client) {
@@ -22,7 +22,7 @@ module.exports = class Hastebin extends Command {
             const result = await this.client.modules.Hastebin(code);
             return msg.say(result);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

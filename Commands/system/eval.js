@@ -1,8 +1,8 @@
 const escapeRegex = require('escape-string-regexp');
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const config = require('../../Config');
-const Raven = require('raven');
+ 
 
 module.exports = class Eval extends Command {
     constructor(client) {
@@ -48,7 +48,7 @@ module.exports = class Eval extends Command {
                 .addField('Output', `\`\`\`js\n${data}\`\`\``, true);
             await msg.embed(embed);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             const embed = new MessageEmbed()
                 .setColor(0xFF0000)
                 .setFooter(`${this.client.version}`)

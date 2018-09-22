@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Gender extends Command {
     constructor(client) {
@@ -34,7 +34,7 @@ module.exports = class Gender extends Command {
             const gen = await gender(first, last);
             return msg.say(gen);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }

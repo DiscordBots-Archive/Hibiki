@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { stripIndents } = require('common-tags');
-const Raven = require('raven');
+ 
 
 module.exports = class LaunchCybernukeCommand extends Command {
     constructor(client) {
@@ -12,23 +12,21 @@ module.exports = class LaunchCybernukeCommand extends Command {
             description: 'Bans all members that have joined recently, with new accounts.',
             guildOnly: true,
 
-            args: [
-                {
-                    key: 'join',
-                    label: 'member age',
-                    prompt: 'how old (in minutes) should a member be for the cybernuke to ignore them (server join date)?',
-                    type: 'float',
-                    min: 0.1,
-                    max: 120
-                },
-                {
-                    key: 'age',
-                    label: 'account age',
-                    prompt: 'how old (in minutes) should a member\'s account be for the cybernuke to ignore them (account age)?',
-                    type: 'float',
-                    min: 0.1
-                }
-            ]
+            args: [{
+                key: 'join',
+                label: 'member age',
+                prompt: 'how old (in minutes) should a member be for the cybernuke to ignore them (server join date)?',
+                type: 'float',
+                min: 0.1,
+                max: 120
+            },
+            {
+                key: 'age',
+                label: 'account age',
+                prompt: 'how old (in minutes) should a member\'s account be for the cybernuke to ignore them (account age)?',
+                type: 'float',
+                min: 0.1
+            }]
         });
     }
 
@@ -96,7 +94,7 @@ module.exports = class LaunchCybernukeCommand extends Command {
                         fatalities.push(member);
                     })
                     .catch(err => {
-                        Raven.captureException(err);
+                        this.captureError(err);
                         this.client.logger.error(err);
                         survivors.push({
                             member: member.id,

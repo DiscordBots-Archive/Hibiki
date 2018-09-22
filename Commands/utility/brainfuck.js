@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 
 const Brainfuck = require('brainfuck-node');
 const brainfuck = new Brainfuck();

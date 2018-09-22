@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Leave extends Command {
     constructor(client) {
@@ -30,7 +30,7 @@ module.exports = class Leave extends Command {
             await guild.leave();
             await msg.say(`✅ | Succesfully left \`${guild.name}\` (\`${guild.id}\`).`);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             await msg.say(`❎ | Failed leaving guild ${guild.name} (${guild.id}): \`${err.message}\`.`);
             await this.client.logger.error(`[GUILD ERROR]: Failed leaving guild ${guild.name} (${guild.id}): \n${err.stack}.`);
         }

@@ -1,6 +1,6 @@
 const { oneLine } = require('common-tags');
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Reload extends Command {
     constructor(client) {
@@ -40,7 +40,7 @@ module.exports = class Reload extends Command {
 					}
 				`);
             } catch(err) {
-                Raven.captureException(err);
+                this.captureError(err);
                 this.client.emit('warn', '❎ | Error when broadcasting command reload to other shards.');
                 this.client.emit('error', err);
                 if(isCmd) {

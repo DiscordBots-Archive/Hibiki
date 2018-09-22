@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { big } = require('../../Assets/json/lund');
 const { MessageEmbed } = require('discord.js');
 const Random = require('random-js');

@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
-const Raven = require('raven');
+ 
 
 module.exports = class Help extends Command {
     constructor(client) {
@@ -40,7 +40,7 @@ module.exports = class Help extends Command {
                 if (msg.channel.type !== 'dm') msgs.push(await msg.say('📬 Sent you a DM with information.'));
                 return msgs;
             } catch (err) {
-                Raven.captureException(err);
+                this.captureError(err);
                 return msg.reply('Failed to send DM. You probably have DMs disabled.');
             }
         }

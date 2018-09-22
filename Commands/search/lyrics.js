@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const request = require('request-promise');
 const { lyricsKey } = require('../../Config/');
-const Raven = require('raven');
+ 
 
 module.exports = class LyricsCommand extends Command {
     constructor(client) {
@@ -43,7 +43,7 @@ module.exports = class LyricsCommand extends Command {
                 };
                 msg.say('🔎 | Type `next` for the next search result.', { embed });
             } catch (e) {
-                Raven.captureException(e);
+                this.captureError(e);
                 this.client.logger.error(e.message);
                 return msg.say('❎ | There are no more results for this search.');
             }

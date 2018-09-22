@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { exec } = require('child_process');
 const { stripIndents } = require('common-tags');
 
@@ -25,16 +25,24 @@ module.exports = class Exec extends Command {
     }
 
     async run(msg, { code }) {
-        exec(code, (err, stdout) => {
+        const execution = await msg.channel.send('Executing..');
+
+        if (code.includes('rm') || code.includes('sudo') || code.includes('su') || code.includes('rd')) {
+            return execution.edit('Forbidden.')
+                .then((res) => res.delete({ timeout: 5000 }));
+        }
+
+        await exec(code, (err, stdout) => {
             if (err) {
-                return msg.say(`\`\`\`${stripIndents`
+                return execution.edit(`\`\`\`${stripIndents`
                     $ ${code} 
                     
                     ${err.message}
                     \`\`\`
                 `}`);
             }
-            return msg.say(`\`\`\`${stripIndents`
+
+            return execution.edit(`\`\`\`${stripIndents`
                     $ ${code} 
             
                     ${stdout ? stdout : 'Command ran with an empty response.'}

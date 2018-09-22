@@ -1,5 +1,5 @@
-const { Command } = require('discord.js-commando');
-const Raven = require('raven');
+const Command = require('../../Structures/Command');
+ 
 
 module.exports = class Encrypt extends Command {
     constructor(client) {
@@ -22,7 +22,7 @@ module.exports = class Encrypt extends Command {
             if (encrypt.length > 1024) return msg.say(this.client.modules.GithubGist(encrypt));
             return msg.say(`🔐 \`${encrypt}\``);
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say('I was unable to encrypt your message.');
         }
     }

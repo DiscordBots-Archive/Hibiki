@@ -1,6 +1,6 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const Raven = require('raven');
+ 
 
 module.exports = class Ban extends Command {
     constructor(client) {
@@ -19,7 +19,8 @@ module.exports = class Ban extends Command {
             }, {
                 key: 'reason',
                 prompt: 'What is the reason?\n',
-                type: 'string'
+                type: 'string',
+                default: ''
             }]
         });
     }
@@ -47,7 +48,7 @@ module.exports = class Ban extends Command {
                 return msg.say('Cancelled the ban.');
             }
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             await this.client.logger.error(err.stack);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }

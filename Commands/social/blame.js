@@ -1,5 +1,5 @@
 const Canvas = require('canvas');
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const path = require('path');
 
 module.exports = class BlameCommand extends Command {

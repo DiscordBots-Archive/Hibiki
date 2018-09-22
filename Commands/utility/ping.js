@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const responses = ['gotta go fast', 'tish is a meme', '( ͡° ͜ʖ ͡°)', 'try to take this [̲̅$̲̅(̲̅5̲̅)̲̅$̲̅]', 'can\'t you see me?'];
 
 module.exports = class Ping extends Command {

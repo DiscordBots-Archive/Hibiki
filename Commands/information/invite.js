@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const { invite } = require('../../Config/');
 
 module.exports = class Invite extends Command {

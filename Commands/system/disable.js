@@ -1,5 +1,5 @@
 const { oneLine } = require('common-tags');
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 
 module.exports = class Disable extends Command {
     constructor(client) {

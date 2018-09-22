@@ -1,8 +1,7 @@
-const path = require('path');
 const { URL } = require('url');
+const path = require('path');
 const Raven = require('raven');
 const winston = require('winston');
-
 const Star = require('../Models/Star');
 
 module.exports = class Starboard {

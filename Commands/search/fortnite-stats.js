@@ -1,8 +1,8 @@
-const { Command } = require('discord.js-commando');
+const Command = require('../../Structures/Command');
 const rp = require('request-promise-native');
 const { fortniteKey } = require('../../Config');
 const platforms = ['pc', 'xbl', 'psn'];
-const Raven = require('raven');
+ 
 
 module.exports = class FortniteStats extends Command {
     constructor(client) {
@@ -73,7 +73,7 @@ module.exports = class FortniteStats extends Command {
                 }]
             });
         } catch (err) {
-            Raven.captureException(err);
+            this.captureError(err);
             return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
         }
     }
