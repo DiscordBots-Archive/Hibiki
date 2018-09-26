@@ -2,7 +2,7 @@
 
 Hibiki is an multi-powered Discord bot for your needs.
 
-[Invite](https://discordapp.com/oauth2/authorize?client_id=454954755756654602&scope=bot) [Support Server](https://discord.gg/c7whDPq)
+[Invite](https://discordapp.com/oauth2/authorize?client_id=454954755756654602&scope=bot) | [Support Server](https://discord.gg/c7whDPq)
 
 # Features
 
