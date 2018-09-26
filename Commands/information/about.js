@@ -26,7 +26,7 @@ module.exports = class About extends Command {
 
         [Statistics about ${this.client.user.username}.]
 
-        • Owner :: ${this.client.users.get(owner).username}
+        • Owner :: ${owner ? owner.map(o => this.client.users.get(o.id).tag).join(', ') : this.client.users.get(owner).tag}
         • Uptime :: ${duration(this.client.uptime)}
         • Repository :: https://github.com/HibikiTeam/Hibiki
         • Prefix :: ${this.client.commandPrefix}

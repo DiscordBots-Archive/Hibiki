@@ -20,6 +20,7 @@ module.exports = class GelbooruCommand extends Command {
     }
 
     async run(msg, { query }) {
+        const random = str => Math.floor(Math.random() * str.length);
         try {
             const { body } = await get('https://gelbooru.com/index.php')
                 .query({
@@ -31,7 +32,7 @@ module.exports = class GelbooruCommand extends Command {
                     limit: 200
                 });
             if (!body) return msg.say('Could not find any results.');
-            return msg.say(body[Math.floor(Math.random() * body.length)].file_url);
+            return msg.say(`${body[random(body)].file_url}\n${body[random(body)].file_url}\n${body[random(body)].file_url}`);
         } catch (err) {
             return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
         }

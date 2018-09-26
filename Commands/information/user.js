@@ -20,6 +20,7 @@ module.exports = class User extends Command {
                 key: 'member',
                 prompt: 'Which user you want to get the information of?\n',
                 type: 'member',
+                error: 'Invalid user.',
                 default: msg => msg.member
             }]
         });

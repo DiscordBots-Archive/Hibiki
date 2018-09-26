@@ -1,7 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
  
-
 module.exports = class Ban extends Command {
     constructor(client) {
         super(client, {
@@ -36,7 +35,12 @@ module.exports = class Ban extends Command {
         if (!modlog) 
             return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         try {
-            const resp = await this.client.modules.AwaitReply(msg, `Do you really want to ban **${member}**?\nRespond with "yes" or "no".`, 30000);
+            const embed = new MessageEmbed()
+                .setTitle('🕥 Waiting for response...')
+                .setColor(0xffff00)
+                .setDescription(`Do you really want to ban **${member}**?`)
+                .setFooter('Respond with yes or no.');
+            const resp = await this.client.modules.AwaitReply(msg, embed, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 const embed = new MessageEmbed()
                     .setColor(0xff0000)
@@ -45,7 +49,11 @@ module.exports = class Ban extends Command {
                 await modlog.send({ embed });
                 await msg.react('✅');
             } else if (['n', 'no', 'cancel'].includes(resp.toLowerCase())) {
-                return msg.say('Cancelled the ban.');
+                const embed = new MessageEmbed()
+                    .setTitle('😌 Phew..')
+                    .setColor(0x00ff00)
+                    .setDescription('The user hasn\'t been banned.');
+                await msg.embed(embed);
             }
         } catch (err) {
             this.captureError(err);
