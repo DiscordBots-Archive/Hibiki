@@ -18,7 +18,7 @@ module.exports = class Hug extends Command {
         });
     }
     async run(msg, { user }) {
-        const users = user ? users.map(u => u.username).join(', ') : user.username;
+        const users = user ? user.map(u => u.username).join(', ') : user.username;
         const { body } = await get('https://rra.ram.moe/i/r?type=hug');
         if (user == this.client.user) {
             return msg.say('*hugs you back*~ ❤', { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
@@ -26,6 +26,6 @@ module.exports = class Hug extends Command {
         if (user == msg.author) {
             return msg.say(`I-I'm sorry you're lonely ${user}. *hugs*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
         }
-        return msg.say(`*${msg.author.toString()} hugs ${user}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
+        return msg.say(`*${msg.author.toString()} hugs ${users}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
     }
 };
