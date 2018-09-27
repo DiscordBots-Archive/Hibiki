@@ -29,10 +29,9 @@ module.exports = class Gay extends Command {
             await embed.setFooter(this.client.version);
         }
 
-        if (member.id == "229373852939976709") gayPercent = 1e15;
-
         if (none.includes(member.id)) gayPercent = 0;
         else if (full.includes(member.id)) gayPercent = 1e8;
+        else if (member.id === "244509121838186497") gayPercent = 169;
         else gayPercent = gayPercent = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
 
         if (gayPercent > 50) {
