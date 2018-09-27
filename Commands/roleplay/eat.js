@@ -12,7 +12,8 @@ module.exports = class Eat extends Command {
             args: [{
                 key: 'user',
                 prompt: 'Which user do you want to eat?~\n',
-                type: 'user'
+                type: 'user',
+                infinite: true
             }]
         });
     }

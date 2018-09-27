@@ -12,7 +12,8 @@ module.exports = class Slap extends Command {
             args: [{
                 key: 'user',
                 prompt: 'Which user do you want to slap?~\n',
-                type: 'user'
+                type: 'user',
+                infinite: true
             }]
         });
     }

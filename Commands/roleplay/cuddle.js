@@ -12,7 +12,8 @@ module.exports = class Cuddle extends Command {
             args: [{
                 key: 'user',
                 prompt: 'Which user do you want to cuddle?~\n',
-                type: 'user'
+                type: 'user',
+                infinite: true
             }]
         });
     }

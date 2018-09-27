@@ -12,7 +12,8 @@ module.exports = class Lick extends Command {
             args: [{
                 key: 'user',
                 prompt: 'Which user do you want to lick?~\n',
-                type: 'user'
+                type: 'user',
+                infinite: true
             }]
         });
     }
