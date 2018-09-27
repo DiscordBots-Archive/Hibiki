@@ -11,13 +11,14 @@ module.exports = class Hug extends Command {
             examples: ['hug @User#1234'],
             args: [{
                 key: 'user',
-                prompt: 'Which user do you want to hug?~\n',
+                prompt: 'Which user(s) do you want to hug?~\n',
                 type: 'user',
                 infinite: true
             }]
         });
     }
     async run(msg, { user }) {
+        const users = user ? users.map(u => u.username).join(', ') : user.username;
         const { body } = await get('https://rra.ram.moe/i/r?type=hug');
         if (user == this.client.user) {
             return msg.say('*hugs you back*~ ❤', { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
