@@ -1,6 +1,5 @@
 const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
- 
 
 module.exports = class Cry extends Command {
     constructor(client) {
@@ -12,6 +11,7 @@ module.exports = class Cry extends Command {
             examples: ['cry']
         });
     }
+    
     async run(msg) {
         try {
             const { body } = await get('https://rra.ram.moe/i/r?type=cry');

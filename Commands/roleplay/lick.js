@@ -17,6 +17,7 @@ module.exports = class Lick extends Command {
         });
     }
     async run(msg, { user }) {
+        const users = user ? user.map(u => u.username).join(', ') : user.username;
         const { body } = await get('https://rra.ram.moe/i/r?type=lick');
         if (user == this.client.user) {
             return msg.say('*licks you back*~ ❤', { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
@@ -24,6 +25,6 @@ module.exports = class Lick extends Command {
         if (user == msg.author) {
             return msg.say(`${user} is licking themselves..?`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
         }
-        return msg.say(`*${msg.author.toString()} licks ${user}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
+        return msg.say(`*${msg.author.toString()} licks ${users}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
     }
 };

@@ -17,6 +17,7 @@ module.exports = class Cuddle extends Command {
         });
     }
     async run(msg, { user }) {
+        const users = user ? user.map(u => u.username).join(', ') : user.username;
         const { body } = await get('https://rra.ram.moe/i/r?type=cuddle');
         if (user == this.client.user) {
             return msg.say('*cuddles you back*~ ❤', { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
@@ -24,6 +25,6 @@ module.exports = class Cuddle extends Command {
         if (user == msg.author) {
             return msg.say(`I-I'm sorry you're lonely ${user}. *cuddles*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
         }
-        return msg.say(`*${msg.author.toString()} cuddles ${user}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
+        return msg.say(`*${msg.author.toString()} cuddles ${users}*~ ❤`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
     }
 };

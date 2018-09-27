@@ -17,6 +17,7 @@ module.exports = class Slap extends Command {
         });
     }
     async run(msg, { user }) {
+        const users = user ? user.map(u => u.username).join(', ') : user.username;
         const { body } = await get('https://rra.ram.moe/i/r?type=slap');
         if (user == this.client.user) {
             return msg.say('Hey, that\'s not very nice! *slaps back*', { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
@@ -24,6 +25,6 @@ module.exports = class Slap extends Command {
         if (user == msg.author) {
             return msg.say(`a-are you sure you want to do that, ${user}?`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
         }
-        return msg.say(`*${msg.author.toString()} slaps ${user}*`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
+        return msg.say(`*${msg.author.toString()} slaps ${users}*`, { files: [{ attachment: `https://rra.ram.moe/${body.path}`, name: `${body.path}` }] });
     }
 };
