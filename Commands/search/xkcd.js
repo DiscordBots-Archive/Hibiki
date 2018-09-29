@@ -1,6 +1,5 @@
 const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
- 
 
 module.exports = class XKCD extends Command {
     constructor(client) {

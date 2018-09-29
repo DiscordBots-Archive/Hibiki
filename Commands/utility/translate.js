@@ -2,9 +2,8 @@ const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
 const { list } = require('../../Modules/Util');
-const { translateKey } = require('../../Config');
+const { TRANSLATE_KEY } = process.env;
 const codes = require('../../Assets/json/translate');
- 
 
 module.exports = class Translate extends Command {
     constructor(client) {
@@ -58,7 +57,7 @@ module.exports = class Translate extends Command {
         try {
             const { body } = await get('https://translate.yandex.net/api/v1.5/tr.json/translate')
                 .query({
-                    key: translateKey,
+                    key: TRANSLATE_KEY,
                     text,
                     lang: base ? `${base}-${target}` : target
                 });

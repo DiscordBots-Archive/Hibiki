@@ -1,14 +1,13 @@
 const Command = require('../../Structures/Command');
 const { stripIndents } = require('common-tags');
 const { get } = require('snekfetch');
- 
 
 module.exports = class ColorInfo extends Command {
     constructor(client) {
         super(client, {
             name: 'color-info',
             aliases: ['colour-info'],
-            group: 'information',
+            group: 'search',
             memberName: 'color-info',
             description: 'Gives information about providen HEX color.',
             examples: ['color-info FFFFFF'],

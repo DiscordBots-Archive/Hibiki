@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const winston = require('winston');
-const { dbURL } = require('../Config');  
+const { DB_URL } = process.env;
 
-const database = new Sequelize(dbURL, { logging: false, operatorsAliases: Sequelize.Op });
+const database = new Sequelize(DB_URL, { logging: false, operatorsAliases: Sequelize.Op });
 
 class Database {
     static get db() {

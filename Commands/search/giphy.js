@@ -1,14 +1,12 @@
 const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
  
-
-
 module.exports = class Giphy extends Command {
     constructor(client) {
         super(client, {
             name: 'giphy',
             aliases: ['gif'],
-            group: 'image',
+            group: 'search',
             memberName: 'giphy',
             description: 'Responds with a GIF image you provided.',
             throttling: {

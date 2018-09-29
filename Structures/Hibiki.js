@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const { readdirSync } = require('fs');
 const { version } = require('../package');
-const { color, token } = require('../Config');
+const { COLOR, TOKEN } = process.env;
 
 const winston = require('winston');
 const Database = require('../Structures/PostgreSQL');
@@ -12,7 +12,7 @@ const Event = require('../Handlers/Event');
 module.exports = class Hibiki extends CommandoClient {
     constructor (options) {
         super (options);
-        this.color = color;
+        this.color = COLOR;
         this.commands = this.registry.commands;
         this.cmdsUsed = 0;
         this.database = Database.db;
@@ -55,7 +55,7 @@ module.exports = class Hibiki extends CommandoClient {
         await this.logger.info('[EVENT HANDLER]: Succesfully loaded.');
 
         await this.logger.info('[DISCORD]: Connecting to Discord..');
-        await this.login(token);
+        await this.login(TOKEN);
 
         await this.dbInit();
     }

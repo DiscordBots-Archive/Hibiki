@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
-const { guildLog } = require('../Config');
+const { CHANNEL_LOG } = process.env;
 
 module.exports = async (client, guild) => {
     if (guild.members.filter(m => m.bot).length / guild.members.size >= 0.60) {
@@ -16,7 +16,7 @@ module.exports = async (client, guild) => {
         .addField('Owner', `\`${guild.owner.user.tag}\` (\`${guild.owner.user.id}\`)`, true)
         .addField('Member count', guild.memberCount, true)
         .addField('Created at', `\`${guild.createdAt.toLocaleString()}\``, true);
-    await client.channels.get(guildLog).send({ embed });
+    await client.channels.get(CHANNEL_LOG).send({ embed });
     await guild.owner.send(stripIndents`
             Thank you for inviting me to \`${guild.name}\`!
             My prefix is \`${client.commandPrefix}\`. To change it, type \`${client.commandPrefix}prefix <prefix>\`.

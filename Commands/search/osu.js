@@ -1,15 +1,14 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
-const { osuKey } = require('../../Config');
- 
+const { OSU_KEY } = process.env;
 
 module.exports = class Osu extends Command {
     constructor(client) {
         super(client, {
             name: 'osu',
             aliases: ['osu-user', 'osu-stats'],
-            group: 'information',
+            group: 'search',
             memberName: 'osu',
             description: 'Searches osu! user and returns information.',
             examples: ['osu <osu! username here>'],
@@ -25,7 +24,7 @@ module.exports = class Osu extends Command {
         try {
             const { body } = await get('https://osu.ppy.sh/api/get_user')
                 .query({
-                    k: osuKey,
+                    k: OSU_KEY,
                     u: user,
                     type: 'string'
                 });

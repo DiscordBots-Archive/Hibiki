@@ -1,15 +1,14 @@
 const Command = require('../../Structures/Command');
 const rp = require('request-promise-native');
-const { fortniteKey } = require('../../Config');
+const { FORTNITE_KEY } = process.env;
 const platforms = ['pc', 'xbl', 'psn'];
- 
 
 module.exports = class FortniteStats extends Command {
     constructor(client) {
         super(client, {
             name: 'fortnite-stats',
             aliases: ['fortnite', 'fortnite-statistics'],
-            group: 'games',
+            group: 'search',
             memberName: 'fortnite-stats',
             description: 'Get statistics of a Fortnite player.',
             details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
@@ -38,7 +37,7 @@ module.exports = class FortniteStats extends Command {
             const options = {
                 uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
                 json: true,
-                headers: { 'TRN-Api-Key': fortniteKey }
+                headers: { 'TRN-Api-Key': FORTNITE_KEY }
             };
 
             const stats = await rp(options).catch(err => {

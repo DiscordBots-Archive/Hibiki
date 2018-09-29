@@ -1,7 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
- 
 
 module.exports = class Wikipedia extends Command {
     constructor(client) {

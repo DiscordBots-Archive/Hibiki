@@ -13,4 +13,4 @@ package-lock.json
 yarn.lock
 
 # Config
-Config/index.js
+.env

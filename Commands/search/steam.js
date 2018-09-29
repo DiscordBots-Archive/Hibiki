@@ -1,16 +1,15 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
- 
 
 module.exports = class Steam extends Command {
     constructor(client) {
         super(client, {
             name: 'steam',
             aliases: ['steam-user'],
-            group: 'information',
+            group: 'search',
             memberName: 'steam',
-            description: 'Searches user on Steam and returns information',
+            description: 'Searches user on Steam and returns information.',
             examples: ['steam <user steam id here>'],
             args: [{
                 key: 'user',

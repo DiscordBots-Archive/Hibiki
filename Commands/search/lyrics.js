@@ -1,7 +1,6 @@
 const Command = require('../../Structures/Command');
 const request = require('request-promise');
-const { lyricsKey } = require('../../Config/');
- 
+const { LYRICS_KEY } = process.env;
 
 module.exports = class LyricsCommand extends Command {
     constructor(client) {
@@ -50,7 +49,7 @@ module.exports = class LyricsCommand extends Command {
             msg.member.currentSearch = msg.channel.createMessageCollector((m) => m.author.id == msg.author.id && m.channel.id == msg.channel.id && m.content.toLowerCase() == 'next', { time: 30000, maxMatches: 1 });
             msg.member.currentSearch.on('collect', () => sayFunction(resultsArray));
         };
-        return request(`https://api.genius.com/search?access_token=${lyricsKey}&q=${query}`, { json: true })
+        return request(`https://api.genius.com/search?access_token=${LYRICS_KEY}}&q=${query}`, { json: true })
             .then(async (d) => {
                 sayFunction(d.response.hits);
             })

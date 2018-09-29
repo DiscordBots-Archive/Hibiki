@@ -1,7 +1,6 @@
 const Command = require('../../Structures/Command');
 const { get } = require('snekfetch');
-const { catKey } = require('../../Config');
- 
+const { CAT_KEY } = process.env;
 
 module.exports = class Cat extends Command {
     constructor(client) {
@@ -17,7 +16,7 @@ module.exports = class Cat extends Command {
     async run(msg) {
         try {
             const { body, headers } = await get('https://thecatapi.com/api/images/get')
-                .query({ api_key: catKey });
+                .query({ api_key: CAT_KEY });
             const format = headers['content-type'].replace(/image\//i, '');
             return msg.say({ files: [{ attachment: body, name: `cat.${format}` }] });
         } catch (err) {

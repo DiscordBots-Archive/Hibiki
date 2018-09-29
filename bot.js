@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Raven = require('raven');
 const Client = require('./Structures/Hibiki');
 const SequelizeProvider = require('./Providers/Sequelize');
@@ -5,25 +7,26 @@ const SequelizeProvider = require('./Providers/Sequelize');
 const Currency = require('./Structures/Currency');
 const Experience = require('./Structures/Experience');
 
+const { blacklist } = require('./Assets/json/messages');
+
 const { FriendlyError } = require('discord.js-commando');
-const { 
-    blacklistMessage, commandPrefix, disableEveryone, invite, owner, unknownCommandResponse, sentry 
-} = require('./Config');
+
+const { PREFIX, OWNERS, SENTRY, INVITE } = process.env;
 
 const Hibiki = new Client({ 
-    commandPrefix, disableEveryone, invite, owner, unknownCommandResponse
+    commandPrefix: PREFIX, disableEveryone: true, invite: INVITE, owner: OWNERS.split(','), unknownCommandResponse: false
 });
 
 Hibiki.start();
 
-if (sentry) {
-    Raven.config(sentry).install();
+if (SENTRY) {
+    Raven.config(SENTRY).install();
 }
 
 Hibiki.dispatcher.addInhibitor(msg => {
-    const blacklist = Hibiki.provider.get('global', 'blacklistUsers', []);
-    if (!blacklist.includes(msg.author.id)) return false;
-    const message = blacklistMessage
+    const blacklistCheck = Hibiki.provider.get('global', 'blacklistUsers', []);
+    if (!blacklistCheck.includes(msg.author.id)) return false;
+    const message = blacklist
         .replace(/(<user>)/, msg.author.username)
         .replace(/(<bot>)/, Hibiki.user.username)
         .replace(/(<owner>)/, Hibiki.users.get(Hibiki.options.owner).tag);

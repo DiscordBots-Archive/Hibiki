@@ -1,8 +1,9 @@
 const escapeRegex = require('escape-string-regexp');
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const config = require('../../Config');
- 
+const { 
+    TOKEN, DB_URL, ENCRYPT_KEY, FORTNITE_KEY, GIST, LYRICS_KEY, OSU_KEY, TRANSLATE_KEY, WEATHER_KEY, CAT_KEY, REDIS_HOST, REDIS_PORT, SENTRY
+} = process.env;
 
 module.exports = class Eval extends Command {
     constructor(client) {
@@ -36,7 +37,7 @@ module.exports = class Eval extends Command {
                 responseTypeOf = require('util').inspect(evaled, { depth: 0 });
             } else responseTypeOf = evaled;
             let data = `${responseTypeOf.replace(new RegExp(`
-                ${this.client.token}|${config.token}|${config.osuKey}|${config.catKey}|${config.translateKey}|${config.weatherKey}|${config.encryptionKey}|${config.fortniteKey}|${config.lyricsKey}
+                ${this.client.token}|${TOKEN}|${GIST}|${DB_URL}|${OSU_KEY}|${CAT_KEY}|${TRANSLATE_KEY}|${WEATHER_KEY}|${ENCRYPT_KEY}|${FORTNITE_KEY}|${LYRICS_KEY}|${REDIS_HOST}|${REDIS_PORT}|${SENTRY}
             `, 'g'), '「ｒｅｄａｃｔｅｄ」')}`;
             if (data.length > 1024) {
                 const resp = await this.client.modules.GitHubGist(data);

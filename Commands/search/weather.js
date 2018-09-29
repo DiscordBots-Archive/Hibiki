@@ -1,8 +1,7 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
-const { weatherKey } = require('../../Config');
- 
+const { WEATHER_KEY } = process.env;
 
 module.exports = class Weather extends Command {
     constructor(client) {
@@ -22,7 +21,7 @@ module.exports = class Weather extends Command {
 
     async run(msg, { cityOrCountry }) {
         try {
-            const { body } = await get(`https://api.apixu.com/v1/current.json?key=${weatherKey}&q=${cityOrCountry}`);
+            const { body } = await get(`https://api.apixu.com/v1/current.json?key=${WEATHER_KEY}&q=${cityOrCountry}`);
             const embed = new MessageEmbed()
                 .setColor(this.client.color)
                 .setThumbnail(`https://${body.current.condition.icon.slice(2)}`)
