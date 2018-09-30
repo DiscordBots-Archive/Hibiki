@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const { stripIndents } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class About extends Command {
     constructor(client) {
@@ -19,25 +20,19 @@ module.exports = class About extends Command {
 
     run(msg) {
         const { duration } = this.client.modules.Util;
-        return msg.say(stripIndents`
-        \`\`\`asciidoc\n
-        = ${this.client.user.username} =
-
-        [Statistics about ${this.client.user.username}.]
-        
-        • Uptime :: ${duration(this.client.uptime)}
-        • Repository :: https://github.com/HibikiTeam/Hibiki
-        • Prefix :: ${this.client.commandPrefix}
-
-        = Statistics =
-
-        • Servers :: ${this.client.guilds.size}
-        • Channels :: ${this.client.channels.size}
-        • Groups :: ${this.client.registry.groups.size}
-        • Commands :: ${this.client.commands.size}
-        • Commands used :: ${this.client.cmdsUsed}
-        • Users :: ${this.client.users.size}
-        \`\`\` 
-        `,);
+        const embed = new MessageEmbed()
+            .setColor(this.client.color)
+            .setFooter('© TishyXT#6814')
+            .setTitle(`Information about ${this.client.user.username}`, true)
+            .addField('Uptime', duration(this.client.uptime), true)
+            .addField('Repository', 'https://github.com/HibikiTeam/Hibiki', true)
+            .addField('Statistics', stripIndents`
+                ${this.client.guilds.size} servers
+                ${this.client.channels.size} channels
+                ${this.client.commands.size} commands
+                ${this.client.users.size} users
+                ${this.client.cmdsUsed} commands used in total.
+            `, true);
+        return msg.embed(embed);
     }
 };

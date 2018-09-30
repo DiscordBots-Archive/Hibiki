@@ -28,8 +28,7 @@ Hibiki.dispatcher.addInhibitor(msg => {
     if (!blacklistCheck.includes(msg.author.id)) return false;
     const message = blacklist
         .replace(/(<user>)/, msg.author.username)
-        .replace(/(<bot>)/, Hibiki.user.username)
-        .replace(/(<owner>)/, Hibiki.users.get(Hibiki.options.owner).tag);
+        .replace(/(<bot>)/, Hibiki.user.username);
     return msg.say(message);
 });
 
@@ -42,7 +41,7 @@ Hibiki
         if (!msg.guild || !msg.guild.settings.get('antiInvite')) return;
         if (msg.author.bot) return;
             
-        if (/(discord(\.gg\/|app\.com\/invite\/|\.me\/))/gi.test(msg.content)) {
+        if (/(discord(\.gg\/|app\.com\/invite\/|\.me\/|\.io\/))/gi.test(msg.content)) {
             if (msg.author.bot || msg.member.permissions.has('MANAGE_SERVER') || msg.member.roles.has(msg.guild.settings.get('antiInviteRole'))) return;
             if (!msg.channel.permissionsFor(Hibiki.user).has(['SEND_MESSAGES', 'MANAGE_MESSAGES'])) return;
             msg.delete();
