@@ -11,7 +11,7 @@ module.exports = class Server extends Command {
             name: 'server',
             aliases: ['server-info', 'guild-info', 'guild'],
             group: 'information',
-            memberName: 'server-info',
+            memberName: 'server',
             description: 'Retrieves server information.\n',
             guildOnly: true,
             args: [{
@@ -23,14 +23,10 @@ module.exports = class Server extends Command {
         });
     }
     run(msg, { server }) {
-        const guild = server ? this.client.guilds.get(server) : msg.guild;
+        const guild = this.client.guilds.get(server) || msg.guild;
         const embed = new MessageEmbed()
-            .setThumbnail(guild.iconURL({ size: 2048 }))
+            .setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
             .setColor(this.client.color)
-            .addField('❯ Server Name',
-                `${guild.name}`, true)
-            .addField('❯ Server ID',
-                `${guild.id}`, true)
             .addField('❯ Created at',
                 `${moment.utc(guild.createdAt).format('MMMM Do YYYY, HH:mm:ss')}`, true)
             .addField('❯ Server region',

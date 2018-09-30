@@ -25,7 +25,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Starboard ⭐', stripIndents`
+                .addField('⭐ Starboard', stripIndents`
                 In order to setup starboard, the bot must have permission to send embed messages to the providen channel.
                 Run \`${this.client.commandPrefix}starboard <channel>\` to enable starboard to the providen channel.
                 Run \`${this.client.commandPrefix}clear-config starboard\` to disable starboard.
@@ -37,7 +37,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Moderation log 🔨', stripIndents`
+                .addField('🔨 Moderation log', stripIndents`
                 In order to setup moderation log, the bot must have permission to send embed messages to the providen channel.
                 Run \`${this.client.commandPrefix}mod-log <channel>\` to enable moderation logging.
                 Run \`${this.client.commandPrefix}clear-config modLog\` to disable moderation logging.
@@ -49,7 +49,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Prefix 🤖', stripIndents`
+                .addField('🤖 Prefix', stripIndents`
                 Run \`${this.client.commandPrefix}prefix <prefix>\` to change it to a custom prefix.
                 Run \`${this.client.commandPrefix}prefix default\` to change the prefix to the default.
                 Run \`${this.client.commandPrefix}prefix none\` to have no prefix at all. (use the bot mention to change the prefix back.)
@@ -61,7 +61,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Anti Invite 🚫', stripIndents`
+                .addField('🚫 Anti Invite', stripIndents`
                 In order to setup anti invite, the bot must have permission to manage messages.
                 Run \`${this.client.commandPrefix}anti-invite\` to enable anti invite.
                 Run \`${this.client.commandPrefix}anti-invite-role <role>\` to set a anti invite role for users that won't be affected by the anti-invite.
@@ -75,7 +75,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Auto Role 👥', stripIndents`
+                .addField('👥 Auto Role', stripIndents`
                     In other to setup auto role, the bot must have permission to manage roles.
                     Run \`${this.client.commandPrefix}auto-role <role>\` to enable auto role to the providen role.
                     Run \`${this.client.commandPrefix}clear-config autoRole\` to disable auto role.
@@ -87,7 +87,7 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Welcome Message/Logging 👋', stripIndents`
+                .addField('👋 Welcome Message/Logging', stripIndents`
                 In order to setup welcome logging, the bot must have permission to the providen welcome channel.
                 Run \`${this.client.commandPrefix}welcome-msg welcomeMsg <message>\` to setup the join message.
                 Run \`${this.client.commandPrefix}welcome-msg byeMsg <message>\` to setup the leave message.
@@ -103,11 +103,24 @@ module.exports = class Setup extends Command {
                 .setColor(this.client.color)
                 .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
-                .addField('Announce(ment) Channel 📢', stripIndents`
-                In order to setup announce(ment) channel, the bot must have permission to manage messages to the providen channel.
+                .addField('📢 Announcement Channel', stripIndents`
+                In order to setup announcement channel, the bot must have permission to manage messages to the providen channel.
                 Run \`${this.client.commandPrefix}announce-channel <channel>\` to enable announce(ment) channel.
                 Run \`${this.client.commandPrefix}announce <message>\` to announce.
                 Run \`${this.client.commandPrefix}clear-config announceChannel\` to disable announce(ment) channel.
+            `);
+            return msg.embed(embed);
+        } else
+        if (option == 'assignable roles') {
+            const embed = new MessageEmbed()
+                .setColor(this.client.color)
+                .setFooter(`Have issues? Run ${this.client.commandPrefix}invite to join the support server.`)
+                .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
+                .addField('👤 Assignable Roles', stripIndents`
+                In order to setup assignable roles, the bot must have permission to manage roles.
+                Run \`${this.client.commandPrefix}add-assignable-role <role>\` to add an assignable role.
+                Run \`${this.client.commandPrefix}assign <role>\` to announce.
+                Run \`${this.client.commandPrefix}remove-assignable-role <role>\` to remove an assignable role.
             `);
             return msg.embed(embed);
         } else {
@@ -117,12 +130,13 @@ module.exports = class Setup extends Command {
                 .setAuthor(`${this.client.user.username} setup guide`, this.client.user.displayAvatarURL())
                 .setDescription('Select the option you need help with.')
                 .addField('⭐ Starboard', `Run \`${this.client.commandPrefix}setup starboard\`.`, true)
-                .addField('🔨 Moderation log', `Run \`${this.client.commandPrefix}setup mod log\`.`, true)
+                .addField('🔨 Moderation Logging', `Run \`${this.client.commandPrefix}setup mod log\`.`, true)
                 .addField('🤖 Prefix', `Run \`${this.client.commandPrefix}setup prefix\`.`, true)
                 .addField('🚫 Anti Invite', `Run \`${this.client.commandPrefix}setup anti invite\`.`, true)
                 .addField('👥 Auto Role', `Run \`${this.client.commandPrefix}setup auto role\`.`, true)
                 .addField('👋 Welcome Message/Logging', `Run \`${this.client.commandPrefix}setup welcome\`.`, true)
-                .addField('📢 Announce(ment) Channel', `Run \`${this.client.commandPrefix}setup announce\`.`, true);
+                .addField('📢 Announcement Channel', `Run \`${this.client.commandPrefix}setup announce\`.`, true)
+                .addField('👤 Assignable Roles', `Run \`${this.client.commandPrefix}setup assignable roles\`.`);
             return msg.embed(embed);
         }
     }
