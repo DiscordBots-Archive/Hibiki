@@ -22,8 +22,7 @@ module.exports = class UrbanDictionaryCommand extends Command {
         const type = 'top';
         const { shorten } = this.client.modules.Util;
         try {
-            const { body } = await get
-                .get('http://api.urbandictionary.com/v0/define')
+            const { body } = await get('http://api.urbandictionary.com/v0/define')
                 .query({ term: word });
             if (!body.list.length) return msg.say('Could not find any results.');
             const data = body.list[type === 'top' ? 0 : Math.floor(Math.random() * body.list.length)];

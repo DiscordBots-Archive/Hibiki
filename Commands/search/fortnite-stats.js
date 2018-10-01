@@ -49,7 +49,7 @@ module.exports = class FortniteStats extends Command {
             }
 
             return msg.embed({
-                color: this.client.color,
+                color: 0xFF0000,
                 title: stats.epicUserHandle,
                 url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(username)}`,
                 footer: { text: this.client.version },
