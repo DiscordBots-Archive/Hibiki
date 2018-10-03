@@ -1,4 +1,4 @@
-# Hibiki ![Travis CI](https://api.travis-ci.org/HibikiTeam/Hibiki.svg?branch=master) 
+# Hibiki [![Travis CI](https://api.travis-ci.org/HibikiTeam/Hibiki.svg?branch=master)](https://travis-ci.org/HibikiTeam/Hibiki) [![Build status](https://ci.appveyor.com/api/projects/status/br7flwfc15hplsyl?svg=true)](https://ci.appveyor.com/project/TishGithub/Hibiki)
 
 Hibiki is an multi-powered Discord bot for your needs.
 
