@@ -1,0 +1,46 @@
+# AppVeyor file
+# http://www.appveyor.com/docs/appveyor-yml
+
+#---------------------------------#
+#      General Configuration      #
+#---------------------------------#
+
+# Build version format
+version: "{build}"
+
+# What combinations to test
+environment:
+  matrix:
+    - nodejs_version: "8"
+    - nodejs_version: "9"
+
+# Caches the directory containing all installed npm modules
+cache:
+  - node_modules
+
+branches:
+  only:
+    - master
+
+#---------------------------------#
+#           Installation          #
+#---------------------------------#
+
+install:
+  # Get the latest stable version of Node.js
+  - ps: Install-Product node $env:nodejs_version
+  # Install latest version of npm
+  - npm install npm@latest -g
+  # Install node-gyp
+  - npm install -g node-gyp
+  # Install linter
+  - npm install -g eslint
+
+build: off
+
+#---------------------------------#
+#              Tests              #
+#---------------------------------#
+
+test_script:
+  - npm test

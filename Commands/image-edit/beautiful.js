@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { createCanvas, loadImage } = require('canvas');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 const { join } = require('path');
 
 module.exports = class BeautifulCommand extends Command {

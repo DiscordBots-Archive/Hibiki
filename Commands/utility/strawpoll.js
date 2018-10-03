@@ -1,5 +1,5 @@
 const Command = require('../../Structures/Command');
-const { post } = require('snekfetch');
+const { post } = require('node-superfetch');
 const { oneLine, stripIndents } = require('common-tags');
  
 

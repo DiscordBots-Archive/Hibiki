@@ -1,6 +1,5 @@
 const Command = require('../../Structures/Command');
-const { get } = require('snekfetch');
- 
+const { get } = require('node-superfetch');
 
 module.exports = class Baguette extends Command {
     constructor(client) {

@@ -1,53 +1,71 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 
-module.exports = class Steam extends Command {
+module.exports = class SteamCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'steam',
-            aliases: ['steam-user'],
+            aliases: ['steam-game', 'game', 'video-game'],
             group: 'search',
             memberName: 'steam',
-            description: 'Searches user on Steam and returns information.',
-            examples: ['steam <user steam id here>'],
+            description: 'Searches Steam for your query.',
             args: [{
-                key: 'user',
-                prompt: 'What is the user\'s Steam user ID?\n',
+                key: 'query',
+                prompt: 'What game would you like to search for?',
                 type: 'string'
             }]
         });
     }
 
-    async run(msg, { user }) {
+    async run(msg, { query }) {
         try {
-            const { body } = await get(`https://api.alexflipnote.xyz/steam/user/${user}`);
+            const id = await this.search(query);
+            if (!id) return msg.say('Could not find any results.');
+            const data = await this.fetchGame(id);
+            const current = data.price_overview ? `$${data.price_overview.final / 100}` : 'Free';
+            const original = data.price_overview ? `$${data.price_overview.initial / 100}` : 'Free';
+            const price = current === original ? current : `~~${original}~~ ${current}`;
+            const platforms = [];
+            if (data.platforms) {
+                if (data.platforms.windows) platforms.push('Windows');
+                if (data.platforms.mac) platforms.push('Mac');
+                if (data.platforms.linux) platforms.push('Linux');
+            }
             const embed = new MessageEmbed()
-                .setColor(0x000000)
-                .setAuthor('Steam', 'https://cdn.iconscout.com/public/images/icon/free/png-512/steam-social-media-32f32522759972ff-512x512.png', 'https://steamcommunity.com')
-                .setThumbnail(body.avatars.avatarmedium)
-                .addField('❯ Username',
-                    body.profile.username, true)
-                .addField('❯ Real name',
-                    body.profile.realname || 'N/A', true)
-                .addField('❯ Time created',
-                    body.profile.timecreated, true)
-                .addField('❯ Description',
-                    body.profile.summary || 'None', true)
-                .addField('❯ State',
-                    body.profile.state, true)
-                .addField('❯ Privacy',
-                    body.profile.privacy || 'N/A', true)
-                .addField('❯ Location',
-                    body.profile.location || 'N/A', true)
-                .addField('❯ VAC bans',
-                    `${body.profile.vacbanned}`, true)
-                .addField('❯ Custom URL',
-                    body.id.customurl, true);
+                .setColor(0x101D2F)
+                .setAuthor('Steam', 'https://i.imgur.com/xxr2UBZ.png', 'http://store.steampowered.com/')
+                .setTitle(data.name)
+                .setURL(`http://store.steampowered.com/app/${data.steam_appid}`)
+                .setThumbnail(data.header_image)
+                .addField('❯ Price', price, true)
+                .addField('❯ Metascore', data.metacritic ? data.metacritic.score : '???', true)
+                .addField('❯ Recommendations', data.recommendations ? data.recommendations.total : '???', true)
+                .addField('❯ Platforms', platforms.join(', ') || 'None', true)
+                .addField('❯ Release Date', data.release_date ? data.release_date.date : '???', true)
+                .addField('❯ DLC Count', data.dlc ? data.dlc.length : 0, true)
+                .addField('❯ Developers', data.developers ? data.developers.join(', ') || '???' : '???')
+                .addField('❯ Publishers', data.publishers ? data.publishers.join(', ') || '???' : '???');
             return msg.embed(embed);
         } catch (err) {
-            this.captureError(err);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+            return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
         }
+    }
+
+    async search(query) {
+        const { body } = await get('https://store.steampowered.com/api/storesearch')
+            .query({
+                cc: 'us',
+                l: 'en',
+                term: query
+            });
+        if (!body.items.length) return null;
+        return body.items[0].id;
+    }
+
+    async fetchGame(id) {
+        const { body } = await get('https://store.steampowered.com/api/appdetails')
+            .query({ appids: id });
+        return body[id.toString()].data;
     }
 };

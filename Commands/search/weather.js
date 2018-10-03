@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 const { WEATHER_KEY } = process.env;
 
 module.exports = class Weather extends Command {

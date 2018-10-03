@@ -1,5 +1,5 @@
 const Command = require('../../Structures/Command');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 const { CAT_KEY } = process.env;
 
 module.exports = class Cat extends Command {

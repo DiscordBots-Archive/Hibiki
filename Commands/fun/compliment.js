@@ -1,0 +1,23 @@
+const Command = require('../../Structures/Command');
+const compliments = require('../../Assets/json/compliment');
+
+module.exports = class ComplimentCommand extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'compliment',
+            group: 'fun',
+            memberName: 'compliment',
+            description: 'Compliments a user.',
+            args: [{
+                key: 'user',
+                prompt: 'What user do you want to compliment?',
+                type: 'user',
+                default: msg => msg.author
+            }]
+        });
+    }
+
+    run(msg, { user }) {
+        return msg.say(`${user.username}, ${compliments[Math.floor(Math.random() * compliments.length)]}`);
+    }
+};

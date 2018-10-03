@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 
 module.exports = class UrbanDictionaryCommand extends Command {
     constructor(client) {

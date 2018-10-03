@@ -19,8 +19,7 @@ module.exports = class Embed extends Command {
     run(msg, { text }) {
         const embed = new MessageEmbed()
             .setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: 'png' }))
-            .setColor(this.client.color)
-            .setFooter(this.client.version)
+            .setColor(msg.member.displayHexColor)
             .setDescription(text);
         return msg.embed(embed);
     }

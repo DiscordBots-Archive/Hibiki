@@ -26,12 +26,7 @@ module.exports = class Exec extends Command {
 
     async run(msg, { code }) {
         const execution = await msg.channel.send('Executing..');
-
-        if (code.includes('rm') || code.includes('sudo') || code.includes('su') || code.includes('rd')) {
-            return execution.edit('Forbidden.')
-                .then((res) => res.delete({ timeout: 5000 }));
-        }
-
+        
         await exec(code, (err, stdout) => {
             if (err) {
                 return execution.edit(`\`\`\`${stripIndents`

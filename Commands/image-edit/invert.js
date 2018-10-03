@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { createCanvas, loadImage } = require('canvas');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 
 module.exports = class InvertCommand extends Command {
     constructor(client) {

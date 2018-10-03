@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 const { list } = require('../../Modules/Util');
 const { TRANSLATE_KEY } = process.env;
 const codes = require('../../Assets/json/translate');

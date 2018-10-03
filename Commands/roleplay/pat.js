@@ -1,5 +1,5 @@
 const Command = require('../../Structures/Command');
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 
 module.exports = class Pat extends Command {
     constructor(client) {

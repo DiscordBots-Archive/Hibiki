@@ -1,4 +1,4 @@
-const { post } = require('snekfetch'); 
+const { post } = require('node-superfetch'); 
 
 module.exports = async (value) => {
     const { body } = await post('https://hastebin.com/documents').send(value.code);

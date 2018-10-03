@@ -1,4 +1,4 @@
-const { get } = require('snekfetch');
+const { get } = require('node-superfetch');
 
 module.exports = class API {
     static async gender(first, last) {

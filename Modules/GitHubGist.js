@@ -1,6 +1,6 @@
 const { GIST } = process.env;
 const { error } = require('winston');
-const { post } = require('snekfetch');
+const { post } = require('node-superfetch');
 const { captureException } = require('raven');
 
 module.exports = async (content) => {
