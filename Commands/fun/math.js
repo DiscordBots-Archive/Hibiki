@@ -1,6 +1,5 @@
 const Command = require('../../Structures/Command');
 const math = require('mathjs');
- 
 
 module.exports = class Math extends Command {
     constructor(client) {
@@ -21,7 +20,7 @@ module.exports = class Math extends Command {
     run(msg, { query }) {
         const num = math.eval(query);
         try {
-            if (query.includes('eval')) {
+            if (query.includes('eval') || query.includes('cos')) {
                 if (this.client.isOwner(msg.author)) {
                     math.eval(query);
                 } else return msg.say('You do not have permissions to execute this.');
