@@ -19,14 +19,15 @@ module.exports = class Math extends Command {
 
     run(msg, { query }) {
         const num = math.eval(query);
-        const blockedWords = ['eval', 'cos', 'sin', 'sec', 'cot', 'csc'];
+        math.import({
+            'import':     function () { throw new Error('Function import is disabled');},
+            'createUnit': function () { throw new Error('Function createUnit is disabled'); },
+            'eval':       function () { throw new Error('Function eval is disabled'); },
+            'parse':      function () { throw new Error('Function parse is disabled'); },
+            'simplify':   function () { throw new Error('Function simplify is disabled'); },
+            'derivative': function () { throw new Error('Function derivative is disabled'); }
+        }, { override: true });
         try {
-            if (query.includes([blockedWords])) {
-                if (this.client.isOwner(msg.author)) {
-                    math.eval(query);
-                } else return msg.say('You do not have permissions to execute this.');
-            }
-
             return msg.say(num);
         } catch (err) {
             this.captureError(err);
