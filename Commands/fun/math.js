@@ -19,8 +19,9 @@ module.exports = class Math extends Command {
 
     run(msg, { query }) {
         const num = math.eval(query);
+        const blockedWords = ['eval', 'cos', 'sin', 'sec', 'cot', 'csc'];
         try {
-            if (query.includes('eval') || query.includes('cos')) {
+            if (query.includes([blockedWords])) {
                 if (this.client.isOwner(msg.author)) {
                     math.eval(query);
                 } else return msg.say('You do not have permissions to execute this.');
