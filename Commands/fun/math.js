@@ -18,7 +18,7 @@ module.exports = class Math extends Command {
     }
 
     run(msg, { query }) {
-        const num = math.eval(query);
+        const num = math.eval;
         math.import({
             'import':     function () { throw new Error('Function import is disabled');},
             'createUnit': function () { throw new Error('Function createUnit is disabled'); },
@@ -28,7 +28,7 @@ module.exports = class Math extends Command {
             'derivative': function () { throw new Error('Function derivative is disabled'); }
         }, { override: true });
         try {
-            return msg.say(num);
+            return msg.say(num(`${query}`));
         } catch (err) {
             this.captureError(err);
             msg.say(err.message);
