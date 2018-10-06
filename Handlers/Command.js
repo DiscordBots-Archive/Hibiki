@@ -13,6 +13,7 @@ module.exports = (client) => {
             ['image', '🖼 Image commands'],
             ['image-edit', '🖌 Image editing commands'],
             ['information', 'ℹ Information commands'],
+            ['marriage', '💏 Marriage commands'],
             ['moderation', '🔨 Moderation commands'],
             ['nsfw', '🔞 NSFW commands'],
             ['reputation', '📈 Reputation commands'],

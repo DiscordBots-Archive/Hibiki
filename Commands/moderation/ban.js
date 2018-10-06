@@ -40,7 +40,7 @@ module.exports = class Ban extends Command {
                 .setColor(0xffff00)
                 .setDescription(`Do you really want to ban **${member}**?`)
                 .setFooter('Respond with yes or no.');
-            const resp = await this.client.modules.AwaitReply(msg, embed, 30000);
+            const resp = await this.client.modules.AwaitReply(msg, msg.author, embed, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 const embed = new MessageEmbed()
                     .setColor(0xff0000)

@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
+const Redis = require('../../Structures/Redis');
 const moment = require('moment');
 
 module.exports = class User extends Command {
@@ -33,7 +34,8 @@ module.exports = class User extends Command {
         if (s == 'offline') return 'off';
     }
 
-    run(msg, { member }) {
+    async run(msg, { member }) {
+        const marriageCheck = await Redis.db.getAsync(`marry${member.id}`);
         const embed = new MessageEmbed()
             .setColor(member.displayHexColor)
             .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
@@ -42,6 +44,7 @@ module.exports = class User extends Command {
                 moment.utc(member.user.createdAt).format('MMMM Do YYYY, HH:mm:ss'))
             .addField('Joined on',
                 moment.utc(member.user.joinedAt).format('MMMM Do YYYY, HH:mm:ss'));
+        marriageCheck ? embed.addField('Married to', this.client.users.get(marriageCheck)) : '';
         msg.embed(embed);
     }
 };

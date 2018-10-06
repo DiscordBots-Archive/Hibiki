@@ -1,0 +1,37 @@
+const Command = require('../../Structures/Command');
+const Strikes = require('../../Models/Strikes');
+
+module.exports = class MeritRemoveCommand extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'strike-remove',
+            aliases: ['remove-strike', 'strike-rem', 'rem-strike', 'rmstrike', 'delstrike', 'unstrike'],
+            group: 'reputation',
+            memberName: 'strike-remove',
+            description: 'Removes an strike from a user.',
+            guildOnly: true,
+
+            args: [{
+                key: 'strike',
+                prompt: 'Which strike ID would you like to remove?\n',
+                type: 'string',
+                infinite: true
+            }]
+        });
+    }
+
+    hasPermission(msg) {
+        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_MESSAGES');
+    }
+
+    async run(msg, { strike }) {
+        try {
+            for (let i of strike) {
+                await Strikes.destroy({ where: { strikeID: i, guildID: msg.guild.id } });
+            }
+            return msg.reply('Removed the strike(s).');
+        } catch (err) {
+            return this.client.logger.error(err);
+        }
+    }
+};

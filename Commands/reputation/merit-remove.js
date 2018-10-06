@@ -5,7 +5,7 @@ module.exports = class MeritRemoveCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'merit-remove',
-            aliases: ['remove-merit', 'merit-rem', 'rem-merit', 'rmmerit', 'delmerit'],
+            aliases: ['remove-merit', 'merit-rem', 'rem-merit', 'rmmerit', 'delmerit', 'unmerit'],
             group: 'reputation',
             memberName: 'merit-remove',
             description: 'Removes a merit from a user.',

@@ -30,7 +30,7 @@ module.exports = class Hackban extends Command {
         if (!modlog) 
             return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         try {
-            const resp = await this.client.modules.AwaitReply(msg, `Do you really want to hackban "${ids}"?\nRespond with "yes" or "no".`, 30000);
+            const resp = await this.client.modules.AwaitReply(msg, msg.author, `Do you really want to hackban "${ids}"?\nRespond with "yes" or "no".`, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 for (let users of ids) { 
                     const embed = new MessageEmbed()

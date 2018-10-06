@@ -36,7 +36,7 @@ module.exports = class Kick extends Command {
         if (!modlog) 
             return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         try {
-            const resp = await this.client.modules.AwaitReply(msg, `Do you really want to ick **${member}**?\nRespond with "yes" or "no".`, 30000);
+            const resp = await this.client.modules.AwaitReply(msg, msg.author, `Do you really want to ick **${member}**?\nRespond with "yes" or "no".`, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 await msg.guild.member(member).kick(reason);
                 const embed = new MessageEmbed()

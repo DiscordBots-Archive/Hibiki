@@ -1,0 +1,45 @@
+const Command = require('../../Structures/Command');
+const Strikes = require('../../Models/Strikes');
+const random = require('randomstring');
+
+module.exports = class StrikeCommand extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'strike',
+            group: 'moderation',
+            memberName: 'strike',
+            description: 'Add a strike to a user.',
+            guildOnly: true,
+            args: [{
+                key: 'member',
+                prompt: 'whom would you like to give a strike?',
+                type: 'member'
+            }, {
+                key: 'message',
+                prompt: 'add a message.',
+                type: 'string',
+                max: 200,
+                default: ''
+            }]
+        });
+    }
+
+    hasPermission(msg) {
+        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_MESSAGES');
+    }
+
+    async run(msg, { member, message }) {
+        await Strikes.create({
+            strikeID: random.generate({
+                length: 6,
+                charset: 'alphabetic'
+            }),
+            userID: member.id,
+            guildID: msg.guild.id,
+            strikeBy: msg.author.id,
+            strikeMessage: message || null
+        });
+
+        return msg.reply(`you've successfully added a strike to ${member.displayName}.`);
+    }
+};
