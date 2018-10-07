@@ -44,7 +44,7 @@ module.exports = class Eval extends Command {
                 return msg.say(`The eval response is more than 1024 characters, so I uploaded the contents here.\n${resp.body.html_url}`);
             }
             const embed = new MessageEmbed()
-                .setColor(this.client.color)
+                .setColor(this.groupColor)
                 .setFooter(`${this.client.version}`)
                 .addField('Output', `\`\`\`js\n${data}\`\`\``, true);
             await msg.embed(embed);

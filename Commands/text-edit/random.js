@@ -4,7 +4,6 @@ module.exports = class Random extends Command {
     constructor(client) {
         super(client, {
             name: 'random',
-            aliases: ['number'],
             group: 'text-edit',
             memberName: 'random',
             description: 'Get a random number between <max> and <min>.',

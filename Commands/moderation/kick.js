@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
- 
+const { stripIndents } = require('common-tags');
 
 module.exports = class Kick extends Command {
     constructor(client) {
@@ -33,17 +33,20 @@ module.exports = class Kick extends Command {
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
         if (!msg.guild.me.permissions.has('KICK_MEMBERS')) 
             return msg.say('Sorry, I don\'t have permissions to kick people.');
-        if (!modlog) 
-            return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         try {
             const resp = await this.client.modules.AwaitReply(msg, msg.author, `Do you really want to ick **${member}**?\nRespond with "yes" or "no".`, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
-                await msg.guild.member(member).kick(reason);
                 const embed = new MessageEmbed()
                     .setColor(0xFFFF00)
-                    .setDescription(`👢 | **User kicked**: ${member}\n**Issuer**: ${msg.author.tag}\n**Reason**: ${reason}`);
-                await modlog.send({ embed });
-                await msg.react('✅');
+                    .setDescription(stripIndents`
+                    👢 | **User kicked**: ${member}
+                    **Issuer**: ${msg.author.tag}
+                    **Reason**: ${reason || 'No reason'}`);
+                msg.guild.member(member).kick([reason]);
+                if (modlog) {
+                    return modlog.send({ embed });
+                }
+                msg.react('✅');
             } else if (['n', 'no', 'cancel'].includes(resp.toLowerCase())) {
                 return msg.say('Cancelled the kick.');
             }

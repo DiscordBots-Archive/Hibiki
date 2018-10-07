@@ -20,6 +20,7 @@ module.exports = class Divorce extends Command {
                 .setDescription('You are not married!');
             return msg.channel.send({ embed });
         }
+        
         const resp = await this.client.modules.AwaitReply(msg, msg.author, 'Are you sure you want to divorce your partner?', 30000);
         if (['yes'].includes(resp.toLowerCase())) {
             await Redis.db.del(`marry${msg.author.id}`);

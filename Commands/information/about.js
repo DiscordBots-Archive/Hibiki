@@ -21,7 +21,7 @@ module.exports = class About extends Command {
     run(msg) {
         const { duration } = this.client.modules.Util;
         const embed = new MessageEmbed()
-            .setColor(this.client.color)
+            .setColor(this.groupColor)
             .setFooter('© TishyXT#6814')
             .setTitle(`Information about ${this.client.user.username}`, true)
             .addField('Uptime', duration(this.client.uptime), true)

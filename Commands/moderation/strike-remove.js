@@ -29,7 +29,7 @@ module.exports = class MeritRemoveCommand extends Command {
             for (let i of strike) {
                 await Strikes.destroy({ where: { strikeID: i, guildID: msg.guild.id } });
             }
-            return msg.reply('Removed the strike(s).');
+            return msg.reply(`Removed the ${strike.length} ${strike.length == 1 ? 'strike' : 'strikes'}.`);
         } catch (err) {
             return this.client.logger.error(err);
         }

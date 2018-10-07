@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
+const { stripIndents } = require('common-tags');
 
 module.exports = class Hackban extends Command {
     constructor(client) {
@@ -27,15 +28,17 @@ module.exports = class Hackban extends Command {
         if (!msg.guild.me.permissions.has('BAN_MEMBERS')) 
             return msg.say('Sorry, I don\'t have permissions to ban people.');
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
-        if (!modlog) 
-            return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
+        if (!modlog) return;
         try {
             const resp = await this.client.modules.AwaitReply(msg, msg.author, `Do you really want to hackban "${ids}"?\nRespond with "yes" or "no".`, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 for (let users of ids) { 
                     const embed = new MessageEmbed()
                         .setColor(0xff0000)
-                        .setDescription(`🔨 | **User hackbanned**: ${users}\n**Issuer**: ${msg.author.tag}`);
+                        .setDescription(stripIndents`
+                        🔨 | **${users.length} ${users.length == 1 ? 'User' : 'Users'} hackbanned**: ${users}
+                        **Issuer**: ${msg.author.tag}
+                        `);
                     await msg.guild.members.ban(users, { reason: 'Hackban' });
                     await modlog.send({ embed });
                     await msg.react('✅');

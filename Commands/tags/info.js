@@ -31,7 +31,7 @@ module.exports = class TagWhoCommand extends Command {
         if (!tag) return msg.say(`A tag with the name **${name}** doesn't exist, ${msg.author}`);
 
         return msg.embed({
-            color: 3447003,
+            color: this.groupColor,
             fields: [
                 {
                     name: 'Username',

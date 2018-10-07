@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
- 
+const { stripIndents } = require('common-tags');
 
 module.exports = class Softban extends Command {
     constructor(client) {
@@ -31,14 +31,15 @@ module.exports = class Softban extends Command {
 
     async run(msg, { member, reason } ) {
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
-        if (!msg.guild.me.permissions.has('BAN_MEMBERS')) 
-            return msg.say('Sorry, I don\'t have permissions to ban people.');
-        if (!modlog) 
-            return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
+        if (!msg.guild.me.permissions.has('BAN_MEMBERS')) return msg.say('Sorry, I don\'t have permissions to ban people.');
+        if (!modlog) return;
         try {
             const embed = new MessageEmbed()
                 .setColor(0xFFFF00)
-                .setDescription(`🔨 | **User softbanned**: ${member}\n**Issuer**: ${msg.author.tag}\n**Reason**: ${reason}`);
+                .setDescription(stripIndents`
+                🔨 | **User softbanned**: ${member}
+                **Issuer**: ${msg.author.tag}
+                **Reason**: ${reason || 'No reason'}`);
             await modlog.send({ embed });
             await member.ban({ days: 0, reason });
             await msg.guild.members.unban(member.id);

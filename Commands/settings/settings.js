@@ -15,11 +15,13 @@ module.exports = class Settings extends Command {
 
     run(msg) {
         const memberLog = msg.guild.channels.get(msg.guild.settings.get('memberLog'));
+        const modLog = msg.guild.channels.get(msg.guild.settings.get('modLog'));
         const antiInvite = msg.guild.roles.get(msg.guild.settings.get('antiInvite'));
         const autoRole = msg.guild.roles.get(msg.guild.settings.get('joinRole'));
         const starboard = msg.guild.channels.get(msg.guild.settings.get('starboard'));
         return msg.say(stripIndents`
             \`Command prefix\`: ${msg.guild.commandPrefix}
+            \`Moderation log\`: ${modLog ? modLog.name : 'None'}.
             \`Starboard\`: ${starboard ? starboard.name : 'None'}.
             \`Auto role\`: ${autoRole ? autoRole.name : 'None'}.
             \`Member log\`: ${memberLog ? memberLog.name : 'None'}.

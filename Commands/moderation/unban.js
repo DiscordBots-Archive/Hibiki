@@ -33,17 +33,17 @@ module.exports = class Unban extends Command {
         if (!msg.guild.me.permissions.has('BAN_MEMBERS')) 
             return msg.say('Sorry, I don\'t have permissions to ban and unban people.');
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
-        if (!modlog) 
-            return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         const bans = await msg.guild.fetchBans();
         if (!bans.has(id)) return msg.say('This user is not banned.');
         const member = bans.get(id).user;
         try {
-            await msg.guild.members.unban(member, { reason });
             const embed = new MessageEmbed()
                 .setColor(0x00ff00)
                 .setDescription(`✅ | **User unbanned**: ${member ? member.tag : `I was unable to display the user... (${id})`}\n**Issuer**: ${msg.author.tag}\n**Reason**: ${reason}`);
-            await modlog.send({ embed });
+            await msg.guild.members.unban(member, { reason });
+            if (modlog) {
+                return modlog.send({ embed });
+            }
             await msg.react('✅');
         } catch (err) {
             this.captureError(err);

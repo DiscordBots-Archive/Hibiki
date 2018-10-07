@@ -19,7 +19,7 @@ module.exports = class Embed extends Command {
     run(msg, { text }) {
         const embed = new MessageEmbed()
             .setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: 'png' }))
-            .setColor(msg.member.displayHexColor)
+            .setColor(msg.member.displayHexColor || this.groupColor)
             .setDescription(text);
         return msg.embed(embed);
     }

@@ -37,7 +37,7 @@ module.exports = class User extends Command {
     async run(msg, { member }) {
         const marriageCheck = await Redis.db.getAsync(`marry${member.id}`);
         const embed = new MessageEmbed()
-            .setColor(member.displayHexColor)
+            .setColor(member.displayHexColor || this.groupColor)
             .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
             .setDescription(`${member.user.bot ? 'Bot' : 'User'} is ${this.switchStatus(member.user.presence.status)} ${member.user.presence.game ? `, plays \`${member.user.presence.game.name}\`` : ''}`)
             .addField('Created on',

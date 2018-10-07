@@ -1,4 +1,5 @@
 const Command = require('../../Structures/Command');
+const { stripIndents } = require('common-tags');
 const { MessageEmbed } = require('discord.js');
  
 module.exports = class Ban extends Command {
@@ -32,8 +33,7 @@ module.exports = class Ban extends Command {
         if (!msg.guild.me.permissions.has('BAN_MEMBERS')) 
             return msg.say('Sorry, I don\'t have permissions to ban people.');
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
-        if (!modlog) 
-            return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
+        if (!modlog) return;
         try {
             const embed = new MessageEmbed()
                 .setTitle('🕥 Waiting for response...')
@@ -44,10 +44,16 @@ module.exports = class Ban extends Command {
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 const embed = new MessageEmbed()
                     .setColor(0xff0000)
-                    .setDescription(`🔨 | **User banned**: ${member}\n**Issuer**: ${msg.author.tag}\n**Reason**: ${reason}`);
-                await member.ban({ reason });
-                await modlog.send({ embed });
-                await msg.react('✅');
+                    .setDescription(stripIndents`
+                        🔨 | **User banned**: ${member}
+                        **Issuer**: ${msg.author.tag}
+                        **Reason**: ${reason || 'No reason'}
+                    `);
+                member.ban({ reason });
+                if (modlog) {
+                    return modlog.send({ embed });
+                }
+                msg.react('✅');
             } else if (['n', 'no', 'cancel'].includes(resp.toLowerCase())) {
                 const embed = new MessageEmbed()
                     .setTitle('😌 Phew..')

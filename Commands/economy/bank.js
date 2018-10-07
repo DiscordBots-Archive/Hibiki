@@ -27,10 +27,9 @@ module.exports = class BankInfoCommand extends Command {
         const interestRate = await Bank.getInterestRate();
         const nextUpdate = await Bank.nextUpdate();
 
-
         const embed = new MessageEmbed()
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
-            .setColor(0x00FF00)
+            .setColor(this.groupColor)
             .setDescription(`${Currency.convert(balance)} in stock.\n${(interestRate * 100).toFixed(3)}% is the current rate.`)
             .setFooter(`Applying interest in ${moment.duration(nextUpdate).format('hh [hours] mm [minutes]')}.`);
         return msg.embed(embed);

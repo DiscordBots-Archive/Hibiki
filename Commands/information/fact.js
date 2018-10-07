@@ -6,7 +6,7 @@ module.exports = class FactCommand extends Command {
         super(client, {
             name: 'fact',
             aliases: ['wikifakt'],
-            group: 'search',
+            group: 'information',
             memberName: 'fact',
             description: 'Responds with a random fact.'
         });

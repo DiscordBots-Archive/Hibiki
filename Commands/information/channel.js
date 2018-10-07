@@ -27,7 +27,7 @@ module.exports = class Channel extends Command {
     }
     run(msg, { channel }) {
         const embed = new MessageEmbed()
-            .setColor(this.client.color)
+            .setColor(this.groupColor)
             .addField('❯ Name',
                 `${msg.channel.name}`, true)
             .addField('❯ ID',

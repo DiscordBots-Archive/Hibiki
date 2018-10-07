@@ -26,7 +26,7 @@ module.exports = class Server extends Command {
         const guild = this.client.guilds.get(server) || msg.guild;
         const embed = new MessageEmbed()
             .setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-            .setColor(this.client.color)
+            .setColor(this.groupColor)
             .addField('❯ Created at',
                 `${moment.utc(guild.createdAt).format('MMMM Do YYYY, HH:mm:ss')}`, true)
             .addField('❯ Server region',

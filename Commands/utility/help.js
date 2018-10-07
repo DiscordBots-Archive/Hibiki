@@ -27,7 +27,7 @@ module.exports = class Help extends Command {
         if (!command) {
             const embed = new MessageEmbed()
                 .setTitle('Command List')
-                .setColor(this.client.color)
+                .setColor(this.groupColor)
                 .setFooter(`${this.client.registry.commands.size} Commands`);
             for (const group of this.client.registry.groups.values()) {
                 embed.addField(group.name, `\`${group.commands.map(cmd => cmd.name).join('`, `')}\`` || 'None');
@@ -45,7 +45,7 @@ module.exports = class Help extends Command {
             }
         }
         const embed = new MessageEmbed()
-            .setColor(this.client.color)
+            .setColor(this.groupColor)
             .setTitle(`__Command **${command.name}**__${command.guildOnly ? ' (Usable only in servers)' : ''}`)
             .setDescription(`${command.description}${command.details ? `\n_${command.details}_` : ''}`)
             .addField('Format', `${msg.anyUsage(`${command.name} ${command.format || ''}`)}`, true)

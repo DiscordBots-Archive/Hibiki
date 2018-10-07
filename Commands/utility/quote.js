@@ -19,7 +19,7 @@ module.exports = class Quote extends Command {
     }
     run(msg, { quote }) {
         const embed = new MessageEmbed()
-            .setColor(this.client.color)
+            .setColor(quote.author.displayHexColor || msg.member.displayHexColor || this.groupColor)
             .setAuthor(quote.author.tag, quote.author.displayAvatarURL())
             .setDescription(quote.content)
             .setTimestamp(quote.createdAt)

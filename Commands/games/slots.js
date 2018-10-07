@@ -31,40 +31,40 @@ module.exports = class SlotsCommand extends Command {
         if (slotOne === slotTwo && slotOne === slotThree) {
             const embed = new MessageEmbed()
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
-                .setColor(0x00FF00)
+                .setColor(this.groupColor)
                 .setDescription(stripIndents`
 			    **${slots1} | ${slots2} | ${slots3}**
 			    **${slotOne} | ${slotTwo} | ${slotThree} <=**
 			    **${slot1} | ${slot2} | ${slot3}**
                 Congratulations, you won! 🎉
                 `)
-                .setFooter(`You received 80 ${Currency.textPlural}.`);
+                .setFooter(`You received 100 ${Currency.textPlural}.`);
             msg.embed(embed);
-            return Currency.addBalance(msg.author.id, 80);
+            return Currency.addBalance(msg.author.id, 100);
         } else if (slots1 === slots2 && slots1 === slots3) {
             const embed = new MessageEmbed()
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
-                .setColor(0x00FF00)
+                .setColor(this.groupColor)
                 .setDescription(stripIndents`
 			    **${slots1} | ${slots2} | ${slots3} <=**
 			    **${slotOne} | ${slotTwo} | ${slotThree}**
 			    **${slot1} | ${slot2} | ${slot3}**
                 Congratulations, you won! 🎉
                 `)
-                .setFooter(`You received 80 ${Currency.textPlural}.`);
+                .setFooter(`You received 100 ${Currency.textPlural}.`);
             msg.embed(embed);
-            return Currency.addBalance(msg.author.id, 80);
+            return Currency.addBalance(msg.author.id, 100);
         } else if (slot1 === slot2 && slot1 === slot3) {
             const embed = new MessageEmbed()
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
-                .setColor(0x00FF00)
+                .setColor(this.groupColor)
                 .setDescription(stripIndents`
 			    **${slots1} | ${slots2} | ${slots3}**
 			    **${slotOne} | ${slotTwo} | ${slotThree}**
 			    **${slot1} | ${slot2} | ${slot3} <=**
                 Congratulations, you won! 🎉
                 `)
-                .setFooter(`You received 80 ${Currency.textPlural}.`);
+                .setFooter(`You received 100 ${Currency.textPlural}.`);
             msg.embed(embed);
             return Currency.addBalance(msg.author.id, 80);
         } else {

@@ -25,11 +25,11 @@ module.exports = class Dick extends Command {
         if (!big[user.id]) {
             if (user == this.client.user) await embed.setDescription('Girls don\'t have dicks. Lewd!');
             const random = new Random(Random.engines.mt19937().seed(user.id));
-            await embed.setColor(this.client.color);
+            await embed.setColor(this.groupColor);
             await embed.setDescription(`**${user}**'s dick size is:\n**${'='.repeat(random.integer(0, 200))}D**!`);
             await embed.setFooter(this.client.version);
         } else {
-            await embed.setColor(this.client.color);
+            await embed.setColor(this.groupColor);
             await embed.setDescription(`**${user}**'s dick size is:\n**${big[user.id]}**!`);
             await embed.setFooter(this.client.version);
         }

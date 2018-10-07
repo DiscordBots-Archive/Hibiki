@@ -23,7 +23,7 @@ module.exports = class Weather extends Command {
         try {
             const { body } = await get(`https://api.apixu.com/v1/current.json?key=${WEATHER_KEY}&q=${cityOrCountry}`);
             const embed = new MessageEmbed()
-                .setColor(this.client.color)
+                .setColor(this.groupColor)
                 .setDescription(`It's currently **${body.current.feelslike_c} ℃** in **${body.location.name}, ${body.location.region}**.`);
             msg.embed(embed);
         } catch (err) {

@@ -1,4 +1,5 @@
 const Command = require('../../Structures/Command');
+const { stripIndents } = require('common-tags');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class Clean extends Command {
@@ -48,7 +49,6 @@ module.exports = class Clean extends Command {
 
     async run(msg, { filter, limit, member }) {
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
-        if (!modlog) return msg.say(`No moderation log channel set. Type \`${msg.guild.commandPrefix} mod-log #channel\` to set it.`);
         let messageFilter;
 
         if (filter) {
@@ -80,8 +80,14 @@ module.exports = class Clean extends Command {
             await msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(err => null);
             const embed = new MessageEmbed()
                 .setColor(0xff0000)
-                .setDescription(`♻ | **Messages cleaned**: ${limit}\n**Filter**: ${this.client.modules.Filter ? this.client.modules.Filter(filter) : 'None'}\n**Issuer**: ${msg.author.tag}`);
-            await modlog.send({ embed });
+                .setDescription(stripIndents`
+                ♻ | **Messages cleaned**: ${limit}
+                **Filter**: ${this.client.modules.Filter ? this.client.modules.Filter(filter) : 'None'}
+                **Issuer**: ${msg.author.tag}
+                `);
+            if (modlog) {
+                return modlog.send({ embed });
+            }
 
             return null;
         }
@@ -91,7 +97,9 @@ module.exports = class Clean extends Command {
         const embed = new MessageEmbed()
             .setColor(0xff0000)
             .setDescription(`♻ | **Messages cleaned**: ${limit}\n**Channel**: ${msg.channel.name}\n**Filter**: ${this.client.modules.Filter ? this.client.modules.Filter(filter) : 'None'}\n**Issuer**: ${msg.author.tag}`);
-        await modlog.send({ embed });
+        if (modlog) {
+            return modlog.send({ embed });
+        }
         return null;
     }
 };

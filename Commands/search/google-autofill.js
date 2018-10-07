@@ -26,7 +26,7 @@ module.exports = class GoogleAutofillCommand extends Command {
                 });
             const data = JSON.parse(text)[1];
             if (!data.length) return msg.say('Could not find any results.');
-            return msg.say(data.join('\n'));
+            return msg.say({ files: [{ attachment: Buffer.from(data.join('\n')), name: 'autofill.txt' }] });
         } catch (err) {
             return msg.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
         }

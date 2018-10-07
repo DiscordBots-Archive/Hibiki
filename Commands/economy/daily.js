@@ -53,7 +53,7 @@ module.exports = class DailyCommand extends Command {
 
         const embed = new MessageEmbed()
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ format: 'png' }))
-            .setColor(0x00ff00)
+            .setColor(this.groupColor)
             .setDescription(`You received your daily ${Currency.convert(Daily.dailyPayout)}.`);
         return msg.embed(embed);
     }

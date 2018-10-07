@@ -24,7 +24,7 @@ module.exports = class Gay extends Command {
         const embed = new MessageEmbed();
 
         if (member.id === this.client.user.id) {
-            await embed.setColor(this.client.color);
+            await embed.setColor(this.groupColor);
             await embed.setDescription('I\'m underage. Pervert!');
             await embed.setFooter(this.client.version);
         }
@@ -35,11 +35,11 @@ module.exports = class Gay extends Command {
         else gayPercent = gayPercent = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
 
         if (gayPercent > 50) {
-            await embed.setColor(this.client.color);
+            await embed.setColor(this.groupColor);
             await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. :gay_pride_flag: `);
             await embed.setFooter(this.client.version);
         } else {
-            await embed.setColor(this.client.color);
+            await embed.setColor(this.groupColor);
             await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. 🌈`);
             await embed.setFooter(this.client.version);
         }
