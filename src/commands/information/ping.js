@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command');
-const { responses } = require('../../assets/json/messages');
+const { pingMsg } = require('../../assets/json/messages');
 
 module.exports = class Ping extends Command {
     constructor(client) {
@@ -19,7 +19,7 @@ module.exports = class Ping extends Command {
     }
 
     async run(msg) {
-        const message = await msg.say(responses[Math.floor(Math.random() * responses.length)]);
+        const message = await msg.say(pingMsg[Math.floor(Math.random() * pingMsg.length)]);
         const ping = Math.round(message.createdTimestamp - msg.createdTimestamp);
         return message.edit(`Message: **${ping}** ms\n Websocket: **${Math.round(this.client.ping)}** ms`);
     }
