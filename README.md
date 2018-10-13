@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/HibikiTeam/Hibiki"><img src="https://cdn.discordapp.com/avatars/480639227516944384/f4b9cafebb7c16fd4e9dc152dd86f68e.png?size=256"></a></p>
+<p align="center"><a href="https://github.com/HibikiTeam/Hibiki"><img src="https://cdn.discordapp.com/avatars/480639227516944384/90d83c0052ea6af81eec4454c221e050.png"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/HibikiTeam/Hibiki" title="Linux Build Status"><img src="https://travis-ci.org/HibikiTeam/Hibiki.svg?branch=master"/></a>
