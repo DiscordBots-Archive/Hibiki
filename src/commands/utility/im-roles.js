@@ -18,7 +18,7 @@ module.exports = class ImRolesCommand extends Command {
         let settings = await Guild.findOne({ where: { guildID: msg.guild.id } });
         let assignableRoles = settings.assignableRoles.roles;
         for (const roles of assignableRoles) {
-            const aRoles = msg.guild.roles.get(roles.id).name;
+            const aRoles = msg.guild.roles.get(roles).name;
             const embed = new MessageEmbed()
                 .setTitle('Assignable roles for this server')
                 .setDescription(aRoles.join(', ') || 'No roles set.');
