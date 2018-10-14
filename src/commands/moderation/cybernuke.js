@@ -1,12 +1,11 @@
 const Command = require('../../structures/Command');
 const { stripIndents } = require('common-tags');
- 
 
 module.exports = class LaunchCybernukeCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'launch-cybernuke',
-            aliases: ['cybernuke'],
+            aliases: ['cybernuke', 'thanos'],
             group: 'moderation',
             memberName: 'cybernuke',
             description: 'Bans all members that have joined recently, with new accounts.',
