@@ -35,19 +35,31 @@ module.exports = class Softban extends Command {
         if (!modlog) return;
         try {
             const embed = new MessageEmbed()
-                .setColor(0xFFFF00)
-                .setDescription(stripIndents`
-                    🔨 | **User softbanned**: ${member}
-                    **Issuer**: ${msg.author.tag}
-                    **Reason**: ${reason || 'No reason'}`);
-            await modlog.send({ embed });
-            await member.ban({ days: 0, reason });
-            await msg.guild.members.unban(member.id);
-            await msg.react('✅');
+                .setTitle('🕥 Waiting for response...')
+                .setColor(0xffff00)
+                .setDescription(`Do you really want to softban **${member}**?`)
+                .setFooter('Respond with yes or no.');
+            const resp = await this.client.modules.awaitReply(msg, msg.author, embed, 30000);
+            if (['y', 'yes'].includes(resp.toLowerCase())) {
+                const embed = new MessageEmbed()
+                    .setColor(0xFFFF00)
+                    .setDescription(stripIndents`
+                        🔨 | **User softbanned**: ${member}
+                        **Issuer**: ${msg.author.tag}
+                        **Reason**: ${reason || 'No reason'}`);
+                if (modlog) {
+                    await modlog.send({ embed });
+                }
+                await member.ban({ days: 0, reason });
+                await msg.guild.members.unban(member.id);
+                await msg.react('✅');
+            } else if (['n', 'no', 'cancel'].includes(resp.toLowerCase())) {
+                return msg.say('Cancelled the ban.');
+            }
         } catch (err) {
             this.captureError(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

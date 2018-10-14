@@ -19,7 +19,7 @@ module.exports = class Duck extends Command {
             return msg.say({ files: [{ attachment: body.url, name: 'duck.png' }] });
         } catch (err) {
             this.captureError(err);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

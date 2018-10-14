@@ -39,21 +39,31 @@ module.exports = class Unban extends Command {
 
         try {
             const embed = new MessageEmbed()
-                .setColor(0x00ff00)
-                .setDescription(stripIndents`
-                    ✅ | **User unbanned**: ${member ? member.tag : 'Unable to display.'} (${id})
-                    **Issuer**: ${msg.author.tag}
-                    **Reason**: ${reason || 'No reason'}
+                .setTitle('🕥 Waiting for response...')
+                .setColor(0xffff00)
+                .setDescription(`Do you really want to unban **${member ? member.tag : id}**?`)
+                .setFooter('Respond with yes or no.');
+            const resp = await this.client.modules.awaitReply(msg, msg.author, embed, 30000);
+            if (['y', 'yes'].includes(resp.toLowerCase())) {
+                const embed = new MessageEmbed()
+                    .setColor(0x00ff00)
+                    .setDescription(stripIndents`
+                        ✅ | **User unbanned**: ${member ? member.tag : 'Unable to display.'} (${id})
+                        **Issuer**: ${msg.author.tag}
+                        **Reason**: ${reason || 'No reason'}
                 `);
-            await msg.guild.members.unban(member, { reason });
-            if (modlog) {
-                return modlog.send({ embed });
+                await msg.guild.members.unban(member, { reason });
+                if (modlog) {
+                    return modlog.send({ embed });
+                }
+                await msg.react('✅');
+            } else if (['n', 'no', 'cancel'].includes(resp.toLowerCase())) {
+                return msg.say('Cancelled the ban.');
             }
-            await msg.react('✅');
         } catch (err) {
             this.captureError(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

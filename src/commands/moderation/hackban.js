@@ -25,12 +25,16 @@ module.exports = class Hackban extends Command {
     }
 
     async run(msg, { ids } ) {
-        if (!msg.guild.me.permissions.has('BAN_MEMBERS')) 
-            return msg.say('Sorry, I don\'t have permissions to ban people.');
+        if (!msg.guild.me.permissions.has('BAN_MEMBERS')) return msg.say('Sorry, I don\'t have permissions to ban people.');
         const modlog = await msg.guild.channels.get(msg.guild.settings.get('modLog'));
         if (!modlog) return;
         try {
-            const resp = await this.client.modules.AwaitReply(msg, msg.author, `Do you really want to hackban "${ids}"?\nRespond with "yes" or "no".`, 30000);
+            const embed = new MessageEmbed()
+                .setTitle('🕥 Waiting for response...')
+                .setColor(0xffff00)
+                .setDescription(`Do you really want to hackban **${ids}**?`)
+                .setFooter('Respond with yes or no.');
+            const resp = await this.client.modules.awaitReply(msg, msg.author, embed, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 for (let users of ids) { 
                     const embed = new MessageEmbed()
@@ -49,7 +53,7 @@ module.exports = class Hackban extends Command {
         } catch (err) {
             this.captureError(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

@@ -30,7 +30,7 @@ module.exports = class ColorInfo extends Command {
             `, { files: [{ attachment: body.image, name: 'color.png '}] });
         } catch (err) {
             this.captureError(err);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);    
+                 
         }
     }
 };

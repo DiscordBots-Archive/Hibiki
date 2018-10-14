@@ -21,7 +21,7 @@ module.exports = class Cat extends Command {
             return msg.say({ files: [{ attachment: body, name: `cat.${format}` }] });
         } catch (err) {
             this.captureError(err);
-            await msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

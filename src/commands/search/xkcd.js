@@ -29,7 +29,7 @@ module.exports = class XKCD extends Command {
             return msg.say(`**${body.safe_title}**\n\n${description}`, { files: [{ attachment: body.img, name: 'comic.png' }] });
         } catch (err) {
             this.captureError(err);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

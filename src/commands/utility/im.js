@@ -18,10 +18,6 @@ module.exports = class ImRoleCommand extends Command {
             }]
         });
     }
-    
-    hasPermission(msg) {
-        return this.client.isOwner(msg.author) || msg.member.permissions.has('MANAGE_ROLES');
-    }
 
     async run(msg, { role }) {
         let settings = await Guild.findOne({ where: { guildID: msg.guild.id } });
@@ -31,7 +27,7 @@ module.exports = class ImRoleCommand extends Command {
         if (!msg.member.roles.has(role.id)) {
             await msg.member.roles.add([role]);
             return msg.say(`I have given you the assignable role \`${role.name}\`.`);
-        }	else {
+        } else {
             await msg.member.roles.remove([role]);
             return msg.say(`I have removed the assignable role \`${role.name}\` from you.`);
         }

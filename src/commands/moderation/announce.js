@@ -36,7 +36,7 @@ module.exports = class Announce extends Command {
         } catch (err) {
             this.captureError(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };

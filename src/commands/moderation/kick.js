@@ -39,7 +39,7 @@ module.exports = class Kick extends Command {
                 .setColor(0xffff00)
                 .setDescription(`Do you really want to kick **${member}**?`)
                 .setFooter('Respond with yes or no.');
-            const resp = await this.client.modules.AwaitReply(msg, msg.author, embed, 30000);
+            const resp = await this.client.modules.awaitReply(msg, msg.author, embed, 30000);
             if (['y', 'yes'].includes(resp.toLowerCase())) {
                 msg.guild.member(member).kick([reason]);
                 const embed = new MessageEmbed()
@@ -63,7 +63,7 @@ module.exports = class Kick extends Command {
         } catch (err) {
             this.captureError(err);
             await this.client.logger.error(err.stack);
-            return msg.say(`❎ | This command has errored and the devs have been notified about it. Give <@${this.client.options.owner}> this message: \`${err.message}\``);
+             
         }
     }
 };
