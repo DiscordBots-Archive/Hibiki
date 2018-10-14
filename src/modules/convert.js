@@ -18,7 +18,7 @@ module.exports = class Convert {
         case 'singapore':
             return 'Singapore :flag_sg:';
         case 'sydney':
-            return 'Sydneys :flag_au:';
+            return 'Sydney :flag_au:';
         case 'us-central':
             return 'US Central :flag_us:';
         case 'us-east':

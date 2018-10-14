@@ -41,8 +41,8 @@ module.exports = class Help extends Command {
                 if (msg.channel.type !== 'dm') msgs.push(await msg.say('📬 Sent you a DM with information.'));
                 return msgs;
             } catch (err) {
-                this.captureError(err);
-                return msg.reply('Failed to send DM. You probably have DMs disabled.');
+                const msgs = [];
+                msgs.push(await msg.embed(embed));
             }
         }
         const embed = new MessageEmbed()
