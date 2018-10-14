@@ -43,6 +43,7 @@ module.exports = class Help extends Command {
             } catch (err) {
                 const msgs = [];
                 msgs.push(await msg.embed(embed));
+                return msgs;
             }
         }
         const embed = new MessageEmbed()
