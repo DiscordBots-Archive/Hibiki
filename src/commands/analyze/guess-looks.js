@@ -30,8 +30,8 @@ class GuessLooksCommand extends Command {
         const inches = random.integer(0, 11);
         const weight = random.integer(50, 300);
         const extra = extras[random.integer(0, extras.length - 1)];
-        return msg.reply(oneLine`
-			I think ${authorUser ? 'you are' : `${user.username} is`} a ${age} year old ${gender} with ${eyeColor} eyes
+        return msg.util.send(oneLine`
+            **::** I think ${authorUser ? 'you are' : `${user.username} is`} a ${age} year old ${gender} with ${eyeColor} eyes
 			and ${hairStyle} ${hairColor} hair. ${authorUser ? 'You are' : `${gender === 'male' ? 'He' : 'She'} is`}
 			${feet}'${inches}" and weigh${authorUser ? '' : 's'} ${weight} pounds. Don't forget the ${extra}!
 		`);

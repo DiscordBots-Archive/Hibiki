@@ -30,9 +30,9 @@ class GayCommand extends Command {
         else gayPercent = gayPercent = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
 
         if (gayPercent > 50) {
-            await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. :gay_pride_flag: `);
+            await embed.setDescription(`**::** **${member.user.username}** is **${gayPercent}**% gay. :gay_pride_flag: `);
         } else {
-            await embed.setDescription(`**${member.user.username}** is **${gayPercent}**% gay. 🌈`);
+            await embed.setDescription(`**::** **${member.user.username}** is **${gayPercent}**% gay. 🌈`);
         }
 
         return msg.util.send([embed]);

@@ -15,13 +15,13 @@ class LewdNekoCommand extends Command {
         try {
             const { body } = await get('https://nekobot.xyz/api/image?type=lewdneko');
             if (body.nsfw && !msg.channel.nsfw) {
-                return msg.util.reply('This image is NSFW. Execute this command in a NSFW channel.');
+                return msg.util.send('This image is NSFW. Execute this command in a NSFW channel.');
             }
             return msg.util.send({ files: [body.message] });
         } catch (err) {
             Logger.error('Error sending NSFW content:');
             Logger.stacktrace(err);
-            return msg.util.reply(`Failed to send NSFW content \`${err.message}\`.`);
+            return msg.util.send(`**::** Failed to send NSFW content \`${err.message}\`.`);
         }
     }
 }

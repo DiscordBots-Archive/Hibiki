@@ -38,11 +38,11 @@ class GenderCommand extends Command {
     async exec(msg, { first, last }) {
         try {
             const gen = await this.gender(first, last);
-            return msg.util.send([gen]);
+            return msg.util.send([`**::** ${gen}`]);
         } catch (err) {
             Logger.error('Error sending gender data:');
             Logger.stacktrace(err);
-            return msg.util.reply(`Failed to send gender data \`${err.message}\`.`);
+            return msg.util.send(`Failed to send gender data \`${err.message}\`.`);
         }
     }
 }

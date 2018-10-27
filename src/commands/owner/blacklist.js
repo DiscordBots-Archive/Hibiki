@@ -28,7 +28,7 @@ class BlacklistCommand extends Command {
     }
 
     async exec(message, { member }) {
-        if (owner.includes(member.id)) return message.util.send(`**${member.user.tag}** is a bot owner and cannot be set to a blacklist.`);
+        if (owner.includes(member.id)) return message.util.send(`**::** **${member.user.tag}** is a bot owner and cannot be set to a blacklist.`);
         const blacklist = this.client.settings.get('global', 'blacklist', []);
 
         if (blacklist.includes(member.id)) {
@@ -36,13 +36,13 @@ class BlacklistCommand extends Command {
             blacklist.splice(index, 1);
             await this.client.settings.set('global', 'blacklist', blacklist);
 
-            return message.util.send(`**${member.user.tag}** has been removed from the blacklist.`);
+            return message.util.send(`**::** **${member.user.tag}** has been removed from the blacklist.`);
         }
         
         blacklist.push(member.id);
         await this.client.settings.set('global', 'blacklist', blacklist);
 
-        return message.util.send(`**${member.user.tag}** has been blacklisted from using the bot.`);
+        return message.util.send(`**::** **${member.user.tag}** has been blacklisted from using the bot.`);
     }
 }
 

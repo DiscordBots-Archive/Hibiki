@@ -12,7 +12,7 @@ class PingCommand extends Command {
 
     async exec(message) {
         message.util.send({ embed: {
-            title: `Roles in ${message.guild.name}`,
+            title: `**::** Roles in ${message.guild.name}`,
             description: `\`\`\`diff\n${message.guild.roles.map(role => `[${role.id}] ${role.name} [${role.members.size} users]`).join('\n')}\`\`\``
         }});
     }

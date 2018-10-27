@@ -1,40 +1,27 @@
 const { dbURL } = require('../../config');
 const Logger = require('../util/Logger');
-const path = require('path');
-const readdir = require('util').promisify(require('fs').readdir);
 const Sequelize = require('sequelize');
 
-const db = new Sequelize(dbURL, {
-    logging: false,
-    operatorsAliases: Sequelize.Op
-});
+const database = new Sequelize(dbURL, { logging: false, operatorsAliases: Sequelize.Op });
 
 class Database {
     static get db() {
-        return db;
+        return database;
     }
 
-    static async authenticate() {
-        try {
-            await db.authenticate();
-            Logger.info('Connection to database has been established successfully.', { tag: 'Postgres' });
-            await this.loadModels(path.join(__dirname, '..', 'models'));
-        } catch (err) {
-            Logger.error('Unable to connect to the database:', { tag: 'Postgres' });
-            Logger.stacktrace(err, { tag: 'Postgres' });
-            Logger.info('Attempting to connect again in 5 seconds...', { tag: 'Postgres' });
-            setTimeout(this.authenticate, 5000);
-        }
-    }
-
-    static async loadModels(modelsPath) {
-        const files = await readdir(modelsPath);
-
-        for (const file of files) {
-            const filePath = path.join(modelsPath, file);
-            if (!filePath.endsWith('.js')) continue;
-            await require(filePath).sync({ alter: true }); // eslint-disable-line no-await-in-loop
-        }
+    static start() {
+        database.authenticate()
+            .then(() => Logger.info('Connection to Postgres database established.'))
+            .then(() => Logger.info('Synchronizing Postgres database...'))
+            .then(() => database.sync()
+                .then(() => Logger.info('Done synchronizing.'))
+                .catch(error => Logger.error(`Error synchronizing the database: \n${error}`))
+            )
+            .catch(error => {
+                Logger.error(`Unable to connect to the Postgres database: \n${error}`);
+                Logger.error('Attempting to reconnect to the Postgres database in 5 seconds...');
+                setTimeout(() => Database.start(), 5000);
+            });
     }
 }
 

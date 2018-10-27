@@ -73,6 +73,7 @@ class AuditCommand extends Command {
         const entry = await message.guild.fetchAuditLogs().then(audit => audit.entries.first());
         const embed = new MessageEmbed()
             .setAuthor(entry.executor.tag, entry.executor.displayAvatarURL())
+            .setTimestamp(entry.createdTimestamp)
             .addField('Action', checkAudit(entry.action, true));
         entry.reason ? embed.addField('Reason', entry.reason, true) : '';
         entry.target ? embed.addField('Target', entry.target, true) : '';

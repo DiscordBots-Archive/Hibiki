@@ -27,16 +27,16 @@ class CoolCommand extends Command {
 
         switch (coolPercent) {
         case coolPercent > 50:
-            embed.setDescription(`**${member.user.username}** is **${coolPercent}**% cool! 😎`);
+            embed.setDescription(`**::** **${member.user.username}** is **${coolPercent}**% cool! 😎`);
             break;
         case coolPercent < 50:
-            embed.setDescription(`**${member.user.username}** is **${coolPercent}**% cool. 😄`);
+            embed.setDescription(`**::** **${member.user.username}** is **${coolPercent}**% cool. 😄`);
             break;
         case coolPercent === 0:
-            embed.setDescription(`**${member.user.username}** is **${coolPercent}**% cool. 😦`);
+            embed.setDescription(`**::** **${member.user.username}** is **${coolPercent}**% cool. 😦`);
             break;
         default:
-            embed.setDescription(`**${member.user.username}** is **${coolPercent}**% cool. 😄`);
+            embed.setDescription(`**::** **${member.user.username}** is **${coolPercent}**% cool. 😄`);
             break;
         }
 

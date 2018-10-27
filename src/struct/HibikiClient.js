@@ -35,7 +35,7 @@ class HibikiClient extends AkairoClient {
                 time: 30000
             }
         });
-
+        
         this.inhibitorHandler = new InhibitorHandler(this, { directory: path.join(__dirname, '..', 'inhibitors') });
         this.listenerHandler = new ListenerHandler(this, { directory: path.join(__dirname, '..', 'listeners') });
 
@@ -60,7 +60,7 @@ class HibikiClient extends AkairoClient {
     }
 
     async start() {
-        await Database.authenticate();
+        await Database.start();
         await this.settings.init();
         return this.login(this.config.token);
     }

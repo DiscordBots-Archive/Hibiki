@@ -20,7 +20,7 @@ class CommandBlockedListener extends Listener {
 
         if (!text) return;
         if (message.guild ? message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') : true) {
-            message.reply(text());
+            message.reply(`**::** ${text()}`);
         }
     }
 }

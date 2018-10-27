@@ -18,7 +18,7 @@ class IQCommand extends Command {
     exec(msg, { user }) {
         const random = new Random(Random.engines.mt19937().seed(user.id));
         const score = random.integer(20, 170);
-        return msg.util.send(`${user.id === msg.author.id ? 'Your' : `${user.username}'s`} IQ score is ${score}.`);
+        return msg.util.send(`**::** ${user.id === msg.author.id ? 'Your' : `${user.username}'s`} IQ score is ${score}.`);
     }
 }
 
