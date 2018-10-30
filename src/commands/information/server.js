@@ -30,7 +30,7 @@ module.exports = class Server extends Command {
             .addField('❯ Created at',
                 `${moment.utc(guild.createdAt).format('MMMM Do YYYY, HH:mm:ss')}`, true)
             .addField('❯ Server region',
-                `${this.client.modules.Region(guild.region)}`, true)
+                `${this.client.modules.convert.region(guild.region)}`, true)
             .addField('❯ Server owner',
                 `${this.client.users.get(guild.ownerID).tag} 👑`, true)
             .addField('❯ Members',

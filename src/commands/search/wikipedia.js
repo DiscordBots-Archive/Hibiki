@@ -40,7 +40,7 @@ module.exports = class Wikipedia extends Command {
                 .setAuthor('Wikipedia', 'https://i.imgur.com/Z7NJBK2.png', 'https://www.wikipedia.org/')
                 .setThumbnail(data.thumbnail ? data.thumbnail.source : null)
                 .setURL(`https://en.wikipedia.org/wiki/${encodeURIComponent(query).replace(/\)/g, '%29')}`)
-                .setDescription(this.client.modules.Util.shorten(data.extract.replace(/\n/g, '\n\n')));
+                .setDescription(this.client.modules.utility.shorten(data.extract.replace(/\n/g, '\n\n')));
             return msg.embed(embed);
         } catch (err) {
             this.captureError(err);

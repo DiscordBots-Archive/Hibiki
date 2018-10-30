@@ -11,7 +11,7 @@ module.exports = class Spin extends Command {
     }
 
     run (msg) {
-        const { duration } = this.client.modules.Util;
+        const { duration } = this.client.modules.utility;
         const spinAmount = Math.floor(Math.random() * (5000 - 90000 + 1)) + 90000;
         msg.say('߷ Spinning fidget spinner..');
         setTimeout(() => {

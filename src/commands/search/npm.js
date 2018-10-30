@@ -23,7 +23,7 @@ module.exports = class NPM extends Command {
     }
 
     async run(msg, { pkg }) {
-        const { trimArray } = this.client.modules.Util;
+        const { trimArray } = this.client.modules.utility;
         try {
             const { body } = await get(`https://registry.npmjs.com/${pkg}`);
             if (body.time.unpublished) return msg.say('❎ | NPM package not found.');

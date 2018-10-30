@@ -19,7 +19,7 @@ module.exports = class About extends Command {
     }
 
     run(msg) {
-        const { duration } = this.client.modules.Util;
+        const { duration } = this.client.modules.utility;
         const embed = new MessageEmbed()
             .setColor(this.groupColor)
             .setFooter('© TishyXT#6814')

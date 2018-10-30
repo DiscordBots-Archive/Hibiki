@@ -24,7 +24,7 @@ module.exports = class GlitchCommand extends Command {
     }
 
     async run(msg, { image }) {
-        const { distort } = this.client.modules.Canvas;
+        const { distort } = this.client.modules.canvas;
         try {
             const { body } = await get(image);
             const data = await loadImage(body);

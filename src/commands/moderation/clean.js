@@ -96,7 +96,7 @@ module.exports = class Clean extends Command {
         await msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(err => null);
         const embed = new MessageEmbed()
             .setColor(0xff0000)
-            .setDescription(`♻ | **Messages cleaned**: ${limit}\n**Channel**: ${msg.channel.name}\n**Filter**: ${this.client.modules.Filter ? this.client.modules.Filter(filter) : 'None'}\n**Issuer**: ${msg.author.tag}`);
+            .setDescription(`♻ | **Messages cleaned**: ${limit}\n**Channel**: ${msg.channel.name}\n**Filter**: ${this.client.modules.Filter ? this.client.modules.convert.filter(filter) : 'None'}\n**Issuer**: ${msg.author.tag}`);
         if (modlog) {
             return modlog.send({ embed });
         }

@@ -20,7 +20,7 @@ module.exports = class UrbanDictionaryCommand extends Command {
 
     async run(msg, { word }) {
         const type = 'top';
-        const { shorten } = this.client.modules.Util;
+        const { shorten } = this.client.modules.utility;
         try {
             const { body } = await get('http://api.urbandictionary.com/v0/define')
                 .query({ term: word });

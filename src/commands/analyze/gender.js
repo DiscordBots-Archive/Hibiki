@@ -29,7 +29,7 @@ module.exports = class Gender extends Command {
     }
 
     async run(msg, { first, last }) {
-        const { gender } = this.client.modules.API;
+        const { gender } = this.client.modules.api;
         try {
             const gen = await gender(first, last);
             return msg.say(gen);
